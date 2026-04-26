@@ -1,0 +1,277 @@
+[gd_scene format=3 uid="uid://bwitclrmbneod"]
+
+[ext_resource type="Script" uid="uid://bmw20ao02llr7" path="res://script/map_01.gd" id="1_2g46u"]
+[ext_resource type="Script" uid="uid://bkrsi0jbei3pw" path="res://script/Camera.gd" id="2_fsl5s"]
+[ext_resource type="Script" uid="uid://drigaxtpc5pty" path="res://script/person/MuscleSkeleton.gd" id="3_gtc74"]
+[ext_resource type="Script" uid="uid://i55acddf6hmb" path="res://script/person/MuscleJoint.gd" id="3_rh2f5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rh2f5"]
+
+[sub_resource type="Sky" id="Sky_gtc74"]
+sky_material = SubResource("ProceduralSkyMaterial_rh2f5")
+
+[sub_resource type="Environment" id="Environment_wh02t"]
+background_mode = 2
+sky = SubResource("Sky_gtc74")
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ukpqo"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ukpqo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjhuf"]
+albedo_color = Color(2.2862106e-07, 0.18172756, 0.036643058, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsl5s"]
+albedo_color = Color(0.35686275, 0.18039216, 0.03529412, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rh2f5"]
+albedo_color = Color(0, 0.18039216, 0.28235295, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtc74"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wh02t"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgk1c"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rh2f5"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gtc74"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tjhuf"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_11mux"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11mux"]
+size = Vector3(1.4, 0.2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ya1qf"]
+size = Vector3(1.4, 0.2, 2)
+
+[node name="Node3D" type="Node3D" unique_id=313802072]
+script = ExtResource("1_2g46u")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=499972976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1691254, 2.9228954)
+environment = SubResource("Environment_wh02t")
+script = ExtResource("2_fsl5s")
+target_path = NodePath("../Skel/Foot_R")
+offset = Vector3(0, 1, 5)
+grabber_force = 50.0
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=456925185]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1738635560]
+shape = SubResource("WorldBoundaryShape3D_ukpqo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1404734876]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ukpqo")
+surface_material_override/0 = SubResource("StandardMaterial3D_tjhuf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor" unique_id=399931028]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, -44.224926, 0, -29.142914)
+mesh = SubResource("PlaneMesh_ukpqo")
+surface_material_override/0 = SubResource("StandardMaterial3D_fsl5s")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor" unique_id=1044924671]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 44.933224, 0, 33.684456)
+mesh = SubResource("PlaneMesh_ukpqo")
+surface_material_override/0 = SubResource("StandardMaterial3D_rh2f5")
+
+[node name="Skel" type="Node3D" parent="." unique_id=535972250]
+transform = Transform3D(-0.66158676, 0, 0.7498687, 0, 0.9999999, 0, -0.7498686, 0, -0.6615868, 0, 0.57893, 0)
+script = ExtResource("3_gtc74")
+
+[node name="Hip" type="RigidBody3D" parent="Skel" unique_id=1563556521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2742312, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Hip" unique_id=772858499]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_gtc74")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Hip" unique_id=633927279]
+mesh = SubResource("CapsuleMesh_wh02t")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Hip_L" type="RigidBody3D" parent="Skel" unique_id=1621491358]
+transform = Transform3D(1, 8.348877e-14, 0, 7.4506215e-09, 1.0000001, -1.4905552e-08, 0, -2.9806714e-08, 1, -0.5678639, 1.8948742, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Hip_L" unique_id=1448950675]
+transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_rh2f5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Hip_L" unique_id=2144929793]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_gtc74")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Thigh_L" type="RigidBody3D" parent="Skel" unique_id=476497953]
+transform = Transform3D(1, 8.287815e-14, 0, 7.450622e-09, 1.0000002, -1.4905554e-08, 3.5390258e-08, -2.9806714e-08, 1, -1, 1.4682218, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Thigh_L" unique_id=1705550222]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_tjhuf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Thigh_L" unique_id=1855086188]
+mesh = SubResource("CapsuleMesh_11mux")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Calf_L" type="RigidBody3D" parent="Skel" unique_id=1173548955]
+transform = Transform3D(1, -6.983262e-10, 0, 4.6570275e-10, 1.0000001, -2.9806714e-08, 3.5390258e-08, -8.783575e-12, 1, -1, 0.5889672, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Calf_L" unique_id=846851801]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_tjhuf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Calf_L" unique_id=1681487940]
+mesh = SubResource("CapsuleMesh_11mux")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Foot_L" type="RigidBody3D" parent="Skel" unique_id=509134041]
+transform = Transform3D(1, 0, 0, 2.328721e-10, 1, -4.4707875e-08, 5.5879354e-09, 0, 1, -1, 1.8053935e-08, -0.4409693)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Foot_L" unique_id=1059732018]
+shape = SubResource("BoxShape3D_11mux")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Foot_L" unique_id=744529959]
+mesh = SubResource("BoxMesh_ya1qf")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Hip_R" type="RigidBody3D" parent="Skel" unique_id=161566747]
+transform = Transform3D(1, 8.348877e-14, 0, 7.450621e-09, 1, -1.490555e-08, 0, -2.9806714e-08, 1, 0.568, 1.895, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Hip_R" unique_id=39497471]
+transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_rh2f5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Hip_R" unique_id=1149474716]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_gtc74")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Thigh_R" type="RigidBody3D" parent="Skel" unique_id=303709512]
+transform = Transform3D(1, 0, 0, 7.450581e-09, 1.0000002, 2.6077032e-08, 2.9802322e-08, 1.4901161e-08, 1, 1, 1.4682218, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Thigh_R" unique_id=1380750051]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_tjhuf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Thigh_R" unique_id=2104108720]
+mesh = SubResource("CapsuleMesh_11mux")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Calf_R" type="RigidBody3D" parent="Skel" unique_id=1849081570]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 1.1175871e-08, 2.9802322e-08, 0, 1, 1, 0.58896714, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Calf_R" unique_id=1181346654]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_tjhuf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Calf_R" unique_id=1543475101]
+mesh = SubResource("CapsuleMesh_11mux")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Foot_R" type="RigidBody3D" parent="Skel" unique_id=1699594768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -0.40382004)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Foot_R" unique_id=1390862000]
+shape = SubResource("BoxShape3D_11mux")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Foot_R" unique_id=1480200475]
+mesh = SubResource("BoxMesh_ya1qf")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="HJL_Hip_Hip" type="HingeJoint3D" parent="Skel" unique_id=940471120]
+transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, -0.25, 1.895, 0)
+node_a = NodePath("../Hip")
+node_b = NodePath("../Hip_L")
+angular_limit/enable = true
+angular_limit/upper = 0.43633232
+angular_limit/lower = -1.134464
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJL_Hip_Thigh" type="HingeJoint3D" parent="Skel" unique_id=183421152]
+transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999976, 0, 8.940697e-08, 0, -1, -1, 1.9116312, 0)
+node_a = NodePath("../Hip_L")
+node_b = NodePath("../Thigh_L")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+angular_limit/lower = -1.3962634
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJL_Thigh_Calf" type="HingeJoint3D" parent="Skel" unique_id=1026944723]
+transform = Transform3D(-5.9604645e-08, 0, 1, 7.451019e-08, 0.9999999, 9.313639e-10, -1, 0, -5.9604645e-08, -1, 1.0380547, 0)
+node_a = NodePath("../Thigh_L")
+node_b = NodePath("../Calf_L")
+angular_limit/enable = true
+angular_limit/upper = 1.134464
+angular_limit/lower = 0.0
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJL_Calf_Foot" type="HingeJoint3D" parent="Skel" unique_id=1964707283]
+transform = Transform3D(-5.9604645e-08, 0, 1, 8.9411344e-08, 0.9999999, 1.6298557e-09, -1, 0, -5.9604645e-08, -1, 0.11429608, 0)
+node_a = NodePath("../Calf_L")
+node_b = NodePath("../Foot_L")
+angular_limit/enable = true
+angular_limit/upper = 1.134464
+angular_limit/lower = -0.87266463
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJR_Hip_Hip" type="HingeJoint3D" parent="Skel" unique_id=688304607]
+transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0.25, 1.895, 0)
+node_a = NodePath("../Hip")
+node_b = NodePath("../Hip_R")
+angular_limit/enable = true
+angular_limit/upper = 0.43633232
+angular_limit/lower = -1.134464
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJR_Hip_Thigh" type="HingeJoint3D" parent="Skel" unique_id=775631677]
+transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 1, 1.9119996, 0)
+node_a = NodePath("../Hip_R")
+node_b = NodePath("../Thigh_R")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+angular_limit/lower = -1.3962634
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJR_Thigh_Calf" type="HingeJoint3D" parent="Skel" unique_id=579218508]
+transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e-10, -1, 0, -5.9604645e-08, 1, 1.0380547, 0)
+node_a = NodePath("../Thigh_R")
+node_b = NodePath("../Calf_R")
+angular_limit/enable = true
+angular_limit/upper = 1.134464
+angular_limit/lower = 0.0
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJR_Calf_Foot" type="HingeJoint3D" parent="Skel" unique_id=588593030]
+transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e-10, -1, 0, -5.9604645e-08, 1, 0.11429608, 0)
+node_a = NodePath("../Calf_R")
+node_b = NodePath("../Foot_R")
+angular_limit/enable = true
+angular_limit/upper = 1.134464
+angular_limit/lower = -0.87266463
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1503839319]
+transform = Transform3D(-0.27100366, 0.72854626, -0.62910837, 0, 0.65356594, 0.7568696, 0.9625783, 0.20511444, -0.17711875, -2.334771, 1.9826233, -1.6074517)
