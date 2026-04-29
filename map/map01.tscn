@@ -275,3 +275,32 @@ motor_target_rate = 0.1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1503839319]
 transform = Transform3D(-0.27100366, 0.72854626, -0.62910837, 0, 0.65356594, 0.7568696, 0.9625783, 0.20511444, -0.17711875, -2.334771, 1.9826233, -1.6074517)
+
+[node name="UI" type="Control" parent="." unique_id=1450274888]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectedNode" type="Label" parent="UI" unique_id=1143165789]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TargetAngleVSlider" type="VSlider" parent="UI" unique_id=1244582062]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008680556
+anchor_top = 0.42100003
+anchor_right = 0.048152782
+anchor_bottom = 0.9675926
+offset_top = 0.19198608
+offset_right = -0.47200394
+offset_bottom = -4.0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="grabber_target_changed" from="Camera3D" to="." method="_on_camera_3d_grabber_target_changed"]
+[connection signal="drag_ended" from="UI/TargetAngleVSlider" to="." method="_on_target_angle_v_slider_drag_ended"]

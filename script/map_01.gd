@@ -13,5 +13,17 @@ func _process(_delta: float) -> void:
 
 
 
+
+
 func start_walk():
 	await _tree.create_timer(1.0).timeout
+
+
+
+
+func _on_target_angle_v_slider_drag_ended(value: bool) -> void:
+	pass
+
+
+func _on_camera_3d_grabber_target_changed(target: RigidBody3D) -> void:
+	pass # Replace with function body.

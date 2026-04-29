@@ -9,6 +9,7 @@ const RAY_LENGTH = 1000.0
 
 @export var grabber_force := 1.0
 
+signal grabber_target_changed(target: RigidBody3D)
 
 var _target: Node3D
 var _target_path: NodePath
@@ -49,6 +50,8 @@ func _input(event):
 					# print(result)
 					_grabber_point = result.position
 					_grabber_target = result.collider
+					set_garget_path(_grabber_target.get_path())
+					grabber_target_changed.emit(_grabber_target)
 		else: # event.released
 			_grabber_target = null
 	elif event is InputEventMouseMotion:
