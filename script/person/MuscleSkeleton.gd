@@ -1,7 +1,19 @@
-extends Node3D
+class_name MuscleSkeleton extends Node3D
 
 
 var _joints: Array[MuscleJoint]
+
+
+
+@onready var hip_L: MuscleJoint = $HJL_Hip_Hip
+@onready var thigh_L: MuscleJoint = $HJL_Hip_Thigh
+@onready var calf_L: MuscleJoint = $HJL_Thigh_Calf
+@onready var foot_L: MuscleJoint = $HJL_Calf_Foot
+@onready var hip_R: MuscleJoint = $HJR_Hip_Hip
+@onready var thigh_R: MuscleJoint = $HJR_Hip_Thigh
+@onready var calf_R: MuscleJoint = $HJR_Thigh_Calf
+@onready var foot_R: MuscleJoint = $HJR_Calf_Foot
+
 
 
 func _ready() -> void:
@@ -10,6 +22,8 @@ func _ready() -> void:
 	# Xts.foreach_child($Skel, add_joint, false, "MuscleJoint")
 	Xts.foreach_child(self, func(x): _joints.append(x), false, "HingeJoint3D")
 	# print(len(_joints))
+	# for joint in _joints:
+	# 	print("@onready var calf_R: MuscleJoint = $", joint.name)
 
 
 

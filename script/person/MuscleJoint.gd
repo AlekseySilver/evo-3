@@ -100,6 +100,19 @@ func get_current_angle() -> float:
 func get_current_angle_deg() -> float:
 	return rad_to_deg(get_current_angle())
 
+
+var target_angle_range: float:
+	set(new_value):
+		var l := limit_lower
+		var u := limit_upper
+		start_target_angle(rad_to_deg(lerpf(l, u, new_value)))
+	get():
+		var l := limit_lower
+		var u := limit_upper
+		if u > l:
+			return (deg_to_rad(_target_angle) - l) / (u - l)
+		return 0.0
+
 #endregion
 
 

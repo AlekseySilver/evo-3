@@ -50,7 +50,7 @@ func _input(event):
 					# print(result)
 					_grabber_point = result.position
 					_grabber_target = result.collider
-					set_garget_path(_grabber_target.get_path())
+					# set_garget_path(_grabber_target.get_path())
 					grabber_target_changed.emit(_grabber_target)
 		else: # event.released
 			_grabber_target = null

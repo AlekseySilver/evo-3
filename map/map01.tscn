@@ -27,6 +27,39 @@ albedo_color = Color(0.35686275, 0.18039216, 0.03529412, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rh2f5"]
 albedo_color = Color(0, 0.18039216, 0.28235295, 1)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_2bf2p"]
+radius = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_3bmei"]
+radius = 0.4
+height = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgk1c"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_poccc"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ova35"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hwbbs"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_poccc"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wh02t"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hwbbs"]
+radius = 0.2
+height = 1.0
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtc74"]
 radius = 0.2
 height = 1.0
@@ -34,8 +67,6 @@ height = 1.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wh02t"]
 radius = 0.2
 height = 1.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgk1c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rh2f5"]
 radius = 0.2
@@ -66,9 +97,9 @@ script = ExtResource("1_2g46u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1691254, 2.9228954)
 environment = SubResource("Environment_wh02t")
 script = ExtResource("2_fsl5s")
-target_path = NodePath("../Skel/Foot_R")
-offset = Vector3(0, 1, 5)
-grabber_force = 50.0
+target_path = NodePath("../Skel/Hip")
+offset = Vector3(0, 0, 7)
+grabber_force = 40.0
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=456925185]
 
@@ -93,6 +124,97 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rh2f5")
 [node name="Skel" type="Node3D" parent="." unique_id=535972250]
 transform = Transform3D(-0.66158676, 0, 0.7498687, 0, 0.9999999, 0, -0.7498686, 0, -0.6615868, 0, 0.57893, 0)
 script = ExtResource("3_gtc74")
+
+[node name="Head" type="RigidBody3D" parent="Skel" unique_id=1248218891]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.00025443733, 4.1182675, 1.8626451e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Head" unique_id=1225752292]
+transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("SphereShape3D_2bf2p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Head" unique_id=901695594]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("SphereMesh_3bmei")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Shoulder_L" type="RigidBody3D" parent="Skel" unique_id=367334443]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.75116634, 3.5948477, -1.7881393e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Shoulder_L" unique_id=545492065]
+transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_poccc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Shoulder_L" unique_id=529152301]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_ova35")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="UArm_L" type="RigidBody3D" parent="Skel" unique_id=1478011480]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -1.4265527, 3.2174883, -8.195639e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/UArm_L" unique_id=490084029]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_hwbbs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/UArm_L" unique_id=1476522424]
+mesh = SubResource("CapsuleMesh_poccc")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="FArm_L" type="RigidBody3D" parent="Skel" unique_id=1627549227]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -1.4280288, 2.3153439, -2.2351742e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/FArm_L" unique_id=1611182972]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_poccc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/FArm_L" unique_id=554342457]
+mesh = SubResource("CapsuleMesh_ova35")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Shoulder_R" type="RigidBody3D" parent="Skel" unique_id=1501458407]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.751, 3.595, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Shoulder_R" unique_id=197230007]
+transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_poccc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Shoulder_R" unique_id=699582265]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_ova35")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="UArm_R" type="RigidBody3D" parent="Skel" unique_id=277383451]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 1.427, 3.217, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/UArm_R" unique_id=820682578]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_hwbbs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/UArm_R" unique_id=512063407]
+mesh = SubResource("CapsuleMesh_poccc")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="FArm_R" type="RigidBody3D" parent="Skel" unique_id=1393037468]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 1.428, 2.315, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/FArm_R" unique_id=839796759]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_poccc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/FArm_R" unique_id=352971973]
+mesh = SubResource("CapsuleMesh_ova35")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Spine1" type="RigidBody3D" parent="Skel" unique_id=176167459]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 3.1201496, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Spine1" unique_id=2055631094]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_wh02t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Spine1" unique_id=1837982719]
+mesh = SubResource("CapsuleMesh_hwbbs")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Hip" type="RigidBody3D" parent="Skel" unique_id=1563556521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2742312, 0)
