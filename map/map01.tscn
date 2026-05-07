@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bkrsi0jbei3pw" path="res://script/Camera.gd" id="2_fsl5s"]
 [ext_resource type="Script" uid="uid://drigaxtpc5pty" path="res://script/person/MuscleSkeleton.gd" id="3_gtc74"]
 [ext_resource type="Script" uid="uid://i55acddf6hmb" path="res://script/person/MuscleJoint.gd" id="3_rh2f5"]
+[ext_resource type="Texture2D" uid="uid://cvx2obe2ves1i" path="res://icon.svg" id="4_wh02t"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rh2f5"]
 
@@ -34,7 +35,8 @@ radius = 0.4
 radius = 0.4
 height = 0.8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgk1c"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwbbs"]
+albedo_texture = ExtResource("4_wh02t")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_poccc"]
 radius = 0.2
@@ -43,6 +45,8 @@ height = 1.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ova35"]
 radius = 0.2
 height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgk1c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hwbbs"]
 radius = 0.2
@@ -129,13 +133,13 @@ script = ExtResource("3_gtc74")
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.00025443733, 4.1182675, 1.8626451e-08)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Head" unique_id=1225752292]
-transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("SphereShape3D_2bf2p")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Head" unique_id=901695594]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_3bmei")
-surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+surface_material_override/0 = SubResource("StandardMaterial3D_hwbbs")
 
 [node name="Shoulder_L" type="RigidBody3D" parent="Skel" unique_id=367334443]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.75116634, 3.5948477, -1.7881393e-07)
@@ -314,6 +318,82 @@ shape = SubResource("BoxShape3D_11mux")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Foot_R" unique_id=1480200475]
 mesh = SubResource("BoxMesh_ya1qf")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="HJ_Spine1_Head" type="HingeJoint3D" parent="Skel" unique_id=479524052]
+transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0, 3.6845946, 0)
+node_a = NodePath("../Spine1")
+node_b = NodePath("../Head")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+angular_limit/lower = 0.0
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJL_Spine1_Shoulder" type="HingeJoint3D" parent="Skel" unique_id=664050633]
+transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, -0.45, 3.595, 0)
+node_a = NodePath("../Spine1")
+node_b = NodePath("../Shoulder_L")
+angular_limit/enable = true
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJL_Shoulder_UArm" type="HingeJoint3D" parent="Skel" unique_id=1619158284]
+transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999964, 0, 8.940697e-08, 0, -1, -1.4219803, 3.5842218, 3.2085003e-07)
+node_a = NodePath("../Shoulder_L")
+node_b = NodePath("../UArm_L")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+angular_limit/lower = -1.3962634
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJL_UArm_FArm" type="HingeJoint3D" parent="Skel" unique_id=1479248358]
+transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, -1.4352481, 2.7500806, 2.4013062e-08)
+node_a = NodePath("../UArm_L")
+node_b = NodePath("../FArm_L")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+angular_limit/lower = -1.134464
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJR_Spine1_Shoulder" type="HingeJoint3D" parent="Skel" unique_id=411403280]
+transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0.45, 3.595, 0)
+node_a = NodePath("../Spine1")
+node_b = NodePath("../Shoulder_R")
+angular_limit/enable = true
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJR_Shoulder_UArm" type="HingeJoint3D" parent="Skel" unique_id=2127076994]
+transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 1, 1.422, 3.584, 0)
+node_a = NodePath("../Shoulder_R")
+node_b = NodePath("../UArm_R")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+angular_limit/lower = -1.3962634
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJR_UArm_FArm" type="HingeJoint3D" parent="Skel" unique_id=1945512944]
+transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 1.435, 2.75, 0)
+node_a = NodePath("../UArm_R")
+node_b = NodePath("../FArm_R")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+angular_limit/lower = -1.134464
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
+
+[node name="HJ_Hip_Spine1" type="HingeJoint3D" parent="Skel" unique_id=1755439287]
+transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, 0, 2.715286, 0)
+node_a = NodePath("../Hip")
+node_b = NodePath("../Spine1")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+angular_limit/lower = 0.0
+script = ExtResource("3_rh2f5")
+motor_target_rate = 0.1
 
 [node name="HJL_Hip_Hip" type="HingeJoint3D" parent="Skel" unique_id=940471120]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, -0.25, 1.895, 0)

@@ -45,7 +45,7 @@ func get_angle_limit_clamped(angle: float) -> float:
 
 #region MOTOR
 
-@export var motor_target_rate: float = 0.5
+@export var motor_target_rate: float = 0.1
 
 var motor_max_torque: float:
 	set(new_value):
@@ -68,7 +68,8 @@ var motor_enabled: bool:
 var _target_angle: float
 
 func update_motor() -> void:
-	motor_target_velocity = (_target_angle - get_current_angle_deg()) * motor_target_rate
+	if motor_enabled:
+		motor_target_velocity = (_target_angle - get_current_angle_deg()) * motor_target_rate
 
 func start_target_angle(angle: float) -> void:
 	_target_angle = get_angle_limit_clamped(angle)

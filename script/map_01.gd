@@ -10,8 +10,7 @@ var _is_walking := false
 
 
 func _ready() -> void:
-	for j in _skel._joints:
-		j.start_target_angle(0.0)
+	_skel.start_stand_pose()
 
 
 func _process(_delta: float) -> void:
