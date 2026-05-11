@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://bwitclrmbneod"]
+
+[ext_resource type="Script" uid="uid://bmw20ao02llr7" path="res://script/map_01.gd" id="1_ixmo8"]
+[ext_resource type="Script" uid="uid://dcxu6i4gjoj5m" path="res://script/OrbCamera.gd" id="2_4q1tj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rh2f5"]
+
+[sub_resource type="Sky" id="Sky_gtc74"]
+sky_material = SubResource("ProceduralSkyMaterial_rh2f5")
+
+[sub_resource type="Environment" id="Environment_wh02t"]
+background_mode = 2
+sky = SubResource("Sky_gtc74")
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ukpqo"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ukpqo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjhuf"]
+albedo_color = Color(2.2862106e-07, 0.18172756, 0.036643058, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsl5s"]
+albedo_color = Color(0.35686275, 0.18039216, 0.03529412, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rh2f5"]
+albedo_color = Color(0, 0.18039216, 0.28235295, 1)
+
+[node name="Node3D" type="Node3D" unique_id=313802072]
+script = ExtResource("1_ixmo8")
+
+[node name="UI" type="Control" parent="." unique_id=1450274888]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectedNode" type="Label" parent="UI" unique_id=1143165789]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TargetAngleVSlider" type="VSlider" parent="UI" unique_id=1244582062]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008680556
+anchor_top = 0.42100003
+anchor_right = 0.048152782
+anchor_bottom = 0.9675926
+offset_top = 0.19198608
+offset_right = -0.47200394
+offset_bottom = -4.0
+metadata/_edit_use_anchors_ = true
+
+[node name="BtnStart" type="Button" parent="UI" unique_id=1499242245]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8133681
+anchor_top = 0.03549383
+anchor_right = 0.9716458
+anchor_bottom = 0.10179013
+offset_right = -0.33599854
+offset_bottom = 0.040008545
+text = "start walk"
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=499972976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4414597, 2.3974595, 9.943747)
+environment = SubResource("Environment_wh02t")
+script = ExtResource("2_4q1tj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1503839319]
+transform = Transform3D(-0.27100366, 0.72854626, -0.62910837, 0, 0.65356594, 0.7568696, 0.9625783, 0.20511444, -0.17711875, -2.334771, 1.9826233, -1.6074517)
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=456925185]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1738635560]
+shape = SubResource("WorldBoundaryShape3D_ukpqo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1404734876]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ukpqo")
+surface_material_override/0 = SubResource("StandardMaterial3D_tjhuf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor" unique_id=399931028]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, -44.224926, 0, -29.142914)
+mesh = SubResource("PlaneMesh_ukpqo")
+surface_material_override/0 = SubResource("StandardMaterial3D_fsl5s")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor" unique_id=1044924671]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 44.933224, 0, 33.684456)
+mesh = SubResource("PlaneMesh_ukpqo")
+surface_material_override/0 = SubResource("StandardMaterial3D_rh2f5")
+
+[node name="InstPoint" type="Node3D" parent="." unique_id=1663889403]
+transform = Transform3D(-0.41620147, 0, 0.90927243, 0, 1, 0, -0.90927243, 0, -0.41620147, 0, 0.4510038, 0)
+
+[connection signal="drag_ended" from="UI/TargetAngleVSlider" to="." method="_on_target_angle_v_slider_drag_ended"]
+[connection signal="pressed" from="UI/BtnStart" to="." method="_on_btn_start_pressed"]
+[connection signal="grabber_target_changed" from="Camera3D" to="." method="_on_camera_3d_grabber_target_changed"]

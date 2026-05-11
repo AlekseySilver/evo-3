@@ -1,32 +1,8 @@
-[gd_scene format=3 uid="uid://bwitclrmbneod"]
+[gd_scene format=3 uid="uid://dqkrbt0chjlr2"]
 
-[ext_resource type="Script" uid="uid://bmw20ao02llr7" path="res://script/map_01.gd" id="1_2g46u"]
-[ext_resource type="Script" uid="uid://bkrsi0jbei3pw" path="res://script/Camera.gd" id="2_fsl5s"]
-[ext_resource type="Script" uid="uid://drigaxtpc5pty" path="res://script/person/MuscleSkeleton.gd" id="3_gtc74"]
-[ext_resource type="Script" uid="uid://i55acddf6hmb" path="res://script/person/MuscleJoint.gd" id="3_rh2f5"]
-[ext_resource type="Texture2D" uid="uid://cvx2obe2ves1i" path="res://icon.svg" id="4_wh02t"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rh2f5"]
-
-[sub_resource type="Sky" id="Sky_gtc74"]
-sky_material = SubResource("ProceduralSkyMaterial_rh2f5")
-
-[sub_resource type="Environment" id="Environment_wh02t"]
-background_mode = 2
-sky = SubResource("Sky_gtc74")
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ukpqo"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ukpqo"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjhuf"]
-albedo_color = Color(2.2862106e-07, 0.18172756, 0.036643058, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsl5s"]
-albedo_color = Color(0.35686275, 0.18039216, 0.03529412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rh2f5"]
-albedo_color = Color(0, 0.18039216, 0.28235295, 1)
+[ext_resource type="Script" uid="uid://drigaxtpc5pty" path="res://script/person/MuscleSkeleton.gd" id="1_lmtnc"]
+[ext_resource type="Texture2D" uid="uid://cvx2obe2ves1i" path="res://texture/icon.svg" id="2_l7huq"]
+[ext_resource type="Script" uid="uid://i55acddf6hmb" path="res://script/person/MuscleJoint.gd" id="3_1kqo7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2bf2p"]
 radius = 0.4
@@ -36,7 +12,7 @@ radius = 0.4
 height = 0.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwbbs"]
-albedo_texture = ExtResource("4_wh02t")
+albedo_texture = ExtResource("2_l7huq")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_poccc"]
 radius = 0.2
@@ -94,415 +70,338 @@ size = Vector3(1.4, 0.2, 2)
 [sub_resource type="BoxMesh" id="BoxMesh_ya1qf"]
 size = Vector3(1.4, 0.2, 2)
 
-[node name="Node3D" type="Node3D" unique_id=313802072]
-script = ExtResource("1_2g46u")
+[node name="Skel" type="Node3D" unique_id=1084243133]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.9999999, 0, 0, 0, 1.0000001, 0, 0, 0)
+script = ExtResource("1_lmtnc")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=499972976]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1691254, 2.9228954)
-environment = SubResource("Environment_wh02t")
-script = ExtResource("2_fsl5s")
-target_path = NodePath("../Skel/Hip")
-offset = Vector3(0, 0, 7)
-grabber_force = 40.0
-
-[node name="Floor" type="StaticBody3D" parent="." unique_id=456925185]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1738635560]
-shape = SubResource("WorldBoundaryShape3D_ukpqo")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1404734876]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
-mesh = SubResource("PlaneMesh_ukpqo")
-surface_material_override/0 = SubResource("StandardMaterial3D_tjhuf")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor" unique_id=399931028]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, -44.224926, 0, -29.142914)
-mesh = SubResource("PlaneMesh_ukpqo")
-surface_material_override/0 = SubResource("StandardMaterial3D_fsl5s")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor" unique_id=1044924671]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 44.933224, 0, 33.684456)
-mesh = SubResource("PlaneMesh_ukpqo")
-surface_material_override/0 = SubResource("StandardMaterial3D_rh2f5")
-
-[node name="Skel" type="Node3D" parent="." unique_id=535972250]
-transform = Transform3D(-0.66158676, 0, 0.7498687, 0, 0.9999999, 0, -0.7498686, 0, -0.6615868, 0, 0.57893, 0)
-script = ExtResource("3_gtc74")
-
-[node name="Head" type="RigidBody3D" parent="Skel" unique_id=1248218891]
+[node name="Head" type="RigidBody3D" parent="." unique_id=620974628]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.00025443733, 4.1182675, 1.8626451e-08)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Head" unique_id=1225752292]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head" unique_id=1260157371]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("SphereShape3D_2bf2p")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Head" unique_id=901695594]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head" unique_id=1279613824]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_3bmei")
 surface_material_override/0 = SubResource("StandardMaterial3D_hwbbs")
 
-[node name="Shoulder_L" type="RigidBody3D" parent="Skel" unique_id=367334443]
+[node name="Shoulder_L" type="RigidBody3D" parent="." unique_id=36673371]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.75116634, 3.5948477, -1.7881393e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Shoulder_L" unique_id=545492065]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shoulder_L" unique_id=1574418569]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_poccc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Shoulder_L" unique_id=529152301]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Shoulder_L" unique_id=1781716350]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="UArm_L" type="RigidBody3D" parent="Skel" unique_id=1478011480]
+[node name="UArm_L" type="RigidBody3D" parent="." unique_id=444693971]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -1.4265527, 3.2174883, -8.195639e-08)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/UArm_L" unique_id=490084029]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UArm_L" unique_id=26378847]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_hwbbs")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/UArm_L" unique_id=1476522424]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="UArm_L" unique_id=826899539]
 mesh = SubResource("CapsuleMesh_poccc")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="FArm_L" type="RigidBody3D" parent="Skel" unique_id=1627549227]
+[node name="FArm_L" type="RigidBody3D" parent="." unique_id=843103774]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -1.4280288, 2.3153439, -2.2351742e-07)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/FArm_L" unique_id=1611182972]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FArm_L" unique_id=1828326568]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_poccc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/FArm_L" unique_id=554342457]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FArm_L" unique_id=143626431]
 mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Shoulder_R" type="RigidBody3D" parent="Skel" unique_id=1501458407]
+[node name="Shoulder_R" type="RigidBody3D" parent="." unique_id=674447023]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.751, 3.595, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Shoulder_R" unique_id=197230007]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shoulder_R" unique_id=1429809924]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_poccc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Shoulder_R" unique_id=699582265]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Shoulder_R" unique_id=608116230]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="UArm_R" type="RigidBody3D" parent="Skel" unique_id=277383451]
+[node name="UArm_R" type="RigidBody3D" parent="." unique_id=2132521824]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 1.427, 3.217, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/UArm_R" unique_id=820682578]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UArm_R" unique_id=1296664897]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_hwbbs")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/UArm_R" unique_id=512063407]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="UArm_R" unique_id=151069914]
 mesh = SubResource("CapsuleMesh_poccc")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="FArm_R" type="RigidBody3D" parent="Skel" unique_id=1393037468]
+[node name="FArm_R" type="RigidBody3D" parent="." unique_id=539170089]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 1.428, 2.315, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/FArm_R" unique_id=839796759]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FArm_R" unique_id=1651010593]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_poccc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/FArm_R" unique_id=352971973]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FArm_R" unique_id=2146857606]
 mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Spine1" type="RigidBody3D" parent="Skel" unique_id=176167459]
+[node name="Spine1" type="RigidBody3D" parent="." unique_id=1090801415]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 3.1201496, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Spine1" unique_id=2055631094]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spine1" unique_id=1765235622]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_wh02t")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Spine1" unique_id=1837982719]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Spine1" unique_id=1637786467]
 mesh = SubResource("CapsuleMesh_hwbbs")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Hip" type="RigidBody3D" parent="Skel" unique_id=1563556521]
+[node name="Hip" type="RigidBody3D" parent="." unique_id=680683994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2742312, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Hip" unique_id=772858499]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hip" unique_id=1841168582]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_gtc74")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Hip" unique_id=633927279]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hip" unique_id=812776104]
 mesh = SubResource("CapsuleMesh_wh02t")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Hip_L" type="RigidBody3D" parent="Skel" unique_id=1621491358]
+[node name="Hip_L" type="RigidBody3D" parent="." unique_id=1880806964]
 transform = Transform3D(1, 8.348877e-14, 0, 7.4506215e-09, 1.0000001, -1.4905552e-08, 0, -2.9806714e-08, 1, -0.5678639, 1.8948742, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Hip_L" unique_id=1448950675]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hip_L" unique_id=2134291010]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_rh2f5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Hip_L" unique_id=2144929793]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hip_L" unique_id=1226730814]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_gtc74")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Thigh_L" type="RigidBody3D" parent="Skel" unique_id=476497953]
+[node name="Thigh_L" type="RigidBody3D" parent="." unique_id=1862795043]
 transform = Transform3D(1, 8.287815e-14, 0, 7.450622e-09, 1.0000002, -1.4905554e-08, 3.5390258e-08, -2.9806714e-08, 1, -1, 1.4682218, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Thigh_L" unique_id=1705550222]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Thigh_L" unique_id=2010673845]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_tjhuf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Thigh_L" unique_id=1855086188]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Thigh_L" unique_id=1944622442]
 mesh = SubResource("CapsuleMesh_11mux")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Calf_L" type="RigidBody3D" parent="Skel" unique_id=1173548955]
+[node name="Calf_L" type="RigidBody3D" parent="." unique_id=1964968438]
 transform = Transform3D(1, -6.983262e-10, 0, 4.6570275e-10, 1.0000001, -2.9806714e-08, 3.5390258e-08, -8.783575e-12, 1, -1, 0.5889672, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Calf_L" unique_id=846851801]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Calf_L" unique_id=1755829100]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_tjhuf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Calf_L" unique_id=1681487940]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Calf_L" unique_id=716907534]
 mesh = SubResource("CapsuleMesh_11mux")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Foot_L" type="RigidBody3D" parent="Skel" unique_id=509134041]
+[node name="Foot_L" type="RigidBody3D" parent="." unique_id=1003921487]
 transform = Transform3D(1, 0, 0, 2.328721e-10, 1, -4.4707875e-08, 5.5879354e-09, 0, 1, -1, 1.8053935e-08, -0.4409693)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Foot_L" unique_id=1059732018]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Foot_L" unique_id=2104629146]
 shape = SubResource("BoxShape3D_11mux")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Foot_L" unique_id=744529959]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Foot_L" unique_id=733136067]
 mesh = SubResource("BoxMesh_ya1qf")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Hip_R" type="RigidBody3D" parent="Skel" unique_id=161566747]
+[node name="Hip_R" type="RigidBody3D" parent="." unique_id=1551720682]
 transform = Transform3D(1, 8.348877e-14, 0, 7.450621e-09, 1, -1.490555e-08, 0, -2.9806714e-08, 1, 0.568, 1.895, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Hip_R" unique_id=39497471]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hip_R" unique_id=1705309761]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_rh2f5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Hip_R" unique_id=1149474716]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hip_R" unique_id=1411939112]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_gtc74")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Thigh_R" type="RigidBody3D" parent="Skel" unique_id=303709512]
+[node name="Thigh_R" type="RigidBody3D" parent="." unique_id=267572086]
 transform = Transform3D(1, 0, 0, 7.450581e-09, 1.0000002, 2.6077032e-08, 2.9802322e-08, 1.4901161e-08, 1, 1, 1.4682218, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Thigh_R" unique_id=1380750051]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Thigh_R" unique_id=1975970381]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_tjhuf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Thigh_R" unique_id=2104108720]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Thigh_R" unique_id=1468931954]
 mesh = SubResource("CapsuleMesh_11mux")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Calf_R" type="RigidBody3D" parent="Skel" unique_id=1849081570]
+[node name="Calf_R" type="RigidBody3D" parent="." unique_id=1876911290]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, 1.1175871e-08, 2.9802322e-08, 0, 1, 1, 0.58896714, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Calf_R" unique_id=1181346654]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Calf_R" unique_id=1476369694]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_tjhuf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Calf_R" unique_id=1543475101]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Calf_R" unique_id=2032980160]
 mesh = SubResource("CapsuleMesh_11mux")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="Foot_R" type="RigidBody3D" parent="Skel" unique_id=1699594768]
+[node name="Foot_R" type="RigidBody3D" parent="." unique_id=580434296]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -0.40382004)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skel/Foot_R" unique_id=1390862000]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Foot_R" unique_id=1473679524]
 shape = SubResource("BoxShape3D_11mux")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skel/Foot_R" unique_id=1480200475]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Foot_R" unique_id=2099143212]
 mesh = SubResource("BoxMesh_ya1qf")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="HJ_Spine1_Head" type="HingeJoint3D" parent="Skel" unique_id=479524052]
+[node name="HJ_Spine1_Head" type="HingeJoint3D" parent="." unique_id=1561683688]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0, 3.6845946, 0)
 node_a = NodePath("../Spine1")
 node_b = NodePath("../Head")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = 0.0
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJL_Spine1_Shoulder" type="HingeJoint3D" parent="Skel" unique_id=664050633]
+[node name="HJL_Spine1_Shoulder" type="HingeJoint3D" parent="." unique_id=400825175]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, -0.45, 3.595, 0)
 node_a = NodePath("../Spine1")
 node_b = NodePath("../Shoulder_L")
 angular_limit/enable = true
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJL_Shoulder_UArm" type="HingeJoint3D" parent="Skel" unique_id=1619158284]
+[node name="HJL_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=1457657636]
 transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999964, 0, 8.940697e-08, 0, -1, -1.4219803, 3.5842218, 3.2085003e-07)
 node_a = NodePath("../Shoulder_L")
 node_b = NodePath("../UArm_L")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.3962634
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJL_UArm_FArm" type="HingeJoint3D" parent="Skel" unique_id=1479248358]
+[node name="HJL_UArm_FArm" type="HingeJoint3D" parent="." unique_id=1563336084]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, -1.4352481, 2.7500806, 2.4013062e-08)
 node_a = NodePath("../UArm_L")
 node_b = NodePath("../FArm_L")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.134464
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJR_Spine1_Shoulder" type="HingeJoint3D" parent="Skel" unique_id=411403280]
+[node name="HJR_Spine1_Shoulder" type="HingeJoint3D" parent="." unique_id=957050775]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0.45, 3.595, 0)
 node_a = NodePath("../Spine1")
 node_b = NodePath("../Shoulder_R")
 angular_limit/enable = true
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJR_Shoulder_UArm" type="HingeJoint3D" parent="Skel" unique_id=2127076994]
+[node name="HJR_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=2006128848]
 transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 1, 1.422, 3.584, 0)
 node_a = NodePath("../Shoulder_R")
 node_b = NodePath("../UArm_R")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.3962634
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJR_UArm_FArm" type="HingeJoint3D" parent="Skel" unique_id=1945512944]
+[node name="HJR_UArm_FArm" type="HingeJoint3D" parent="." unique_id=527871323]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 1.435, 2.75, 0)
 node_a = NodePath("../UArm_R")
 node_b = NodePath("../FArm_R")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.134464
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJ_Hip_Spine1" type="HingeJoint3D" parent="Skel" unique_id=1755439287]
+[node name="HJ_Hip_Spine1" type="HingeJoint3D" parent="." unique_id=584459437]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, 0, 2.715286, 0)
 node_a = NodePath("../Hip")
 node_b = NodePath("../Spine1")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = 0.0
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJL_Hip_Hip" type="HingeJoint3D" parent="Skel" unique_id=940471120]
+[node name="HJL_Hip_Hip" type="HingeJoint3D" parent="." unique_id=829647517]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, -0.25, 1.895, 0)
 node_a = NodePath("../Hip")
 node_b = NodePath("../Hip_L")
 angular_limit/enable = true
 angular_limit/upper = 0.43633232
 angular_limit/lower = -1.134464
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+motor/max_impulse = 2.0
+script = ExtResource("3_1kqo7")
 
-[node name="HJL_Hip_Thigh" type="HingeJoint3D" parent="Skel" unique_id=183421152]
+[node name="HJL_Hip_Thigh" type="HingeJoint3D" parent="." unique_id=273055972]
 transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999976, 0, 8.940697e-08, 0, -1, -1, 1.9116312, 0)
 node_a = NodePath("../Hip_L")
 node_b = NodePath("../Thigh_L")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.3962634
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJL_Thigh_Calf" type="HingeJoint3D" parent="Skel" unique_id=1026944723]
+[node name="HJL_Thigh_Calf" type="HingeJoint3D" parent="." unique_id=317913748]
 transform = Transform3D(-5.9604645e-08, 0, 1, 7.451019e-08, 0.9999999, 9.313639e-10, -1, 0, -5.9604645e-08, -1, 1.0380547, 0)
 node_a = NodePath("../Thigh_L")
 node_b = NodePath("../Calf_L")
 angular_limit/enable = true
 angular_limit/upper = 1.134464
 angular_limit/lower = 0.0
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJL_Calf_Foot" type="HingeJoint3D" parent="Skel" unique_id=1964707283]
+[node name="HJL_Calf_Foot" type="HingeJoint3D" parent="." unique_id=1283329375]
 transform = Transform3D(-5.9604645e-08, 0, 1, 8.9411344e-08, 0.9999999, 1.6298557e-09, -1, 0, -5.9604645e-08, -1, 0.11429608, 0)
 node_a = NodePath("../Calf_L")
 node_b = NodePath("../Foot_L")
 angular_limit/enable = true
 angular_limit/upper = 1.134464
 angular_limit/lower = -0.87266463
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJR_Hip_Hip" type="HingeJoint3D" parent="Skel" unique_id=688304607]
+[node name="HJR_Hip_Hip" type="HingeJoint3D" parent="." unique_id=1893926356]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0.25, 1.895, 0)
 node_a = NodePath("../Hip")
 node_b = NodePath("../Hip_R")
 angular_limit/enable = true
 angular_limit/upper = 0.43633232
 angular_limit/lower = -1.134464
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+motor/max_impulse = 2.0
+script = ExtResource("3_1kqo7")
 
-[node name="HJR_Hip_Thigh" type="HingeJoint3D" parent="Skel" unique_id=775631677]
+[node name="HJR_Hip_Thigh" type="HingeJoint3D" parent="." unique_id=709117702]
 transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 1, 1.9119996, 0)
 node_a = NodePath("../Hip_R")
 node_b = NodePath("../Thigh_R")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.3962634
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJR_Thigh_Calf" type="HingeJoint3D" parent="Skel" unique_id=579218508]
+[node name="HJR_Thigh_Calf" type="HingeJoint3D" parent="." unique_id=722872662]
 transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e-10, -1, 0, -5.9604645e-08, 1, 1.0380547, 0)
 node_a = NodePath("../Thigh_R")
 node_b = NodePath("../Calf_R")
 angular_limit/enable = true
 angular_limit/upper = 1.134464
 angular_limit/lower = 0.0
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
+script = ExtResource("3_1kqo7")
 
-[node name="HJR_Calf_Foot" type="HingeJoint3D" parent="Skel" unique_id=588593030]
+[node name="HJR_Calf_Foot" type="HingeJoint3D" parent="." unique_id=436475635]
 transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e-10, -1, 0, -5.9604645e-08, 1, 0.11429608, 0)
 node_a = NodePath("../Calf_R")
 node_b = NodePath("../Foot_R")
 angular_limit/enable = true
 angular_limit/upper = 1.134464
 angular_limit/lower = -0.87266463
-script = ExtResource("3_rh2f5")
-motor_target_rate = 0.1
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1503839319]
-transform = Transform3D(-0.27100366, 0.72854626, -0.62910837, 0, 0.65356594, 0.7568696, 0.9625783, 0.20511444, -0.17711875, -2.334771, 1.9826233, -1.6074517)
-
-[node name="UI" type="Control" parent="." unique_id=1450274888]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="SelectedNode" type="Label" parent="UI" unique_id=1143165789]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="TargetAngleVSlider" type="VSlider" parent="UI" unique_id=1244582062]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.008680556
-anchor_top = 0.42100003
-anchor_right = 0.048152782
-anchor_bottom = 0.9675926
-offset_top = 0.19198608
-offset_right = -0.47200394
-offset_bottom = -4.0
-metadata/_edit_use_anchors_ = true
-
-[connection signal="grabber_target_changed" from="Camera3D" to="." method="_on_camera_3d_grabber_target_changed"]
-[connection signal="drag_ended" from="UI/TargetAngleVSlider" to="." method="_on_target_angle_v_slider_drag_ended"]
+script = ExtResource("3_1kqo7")

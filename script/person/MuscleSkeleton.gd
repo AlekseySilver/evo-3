@@ -1,9 +1,9 @@
 class_name MuscleSkeleton extends Node3D
 
+enum StateType { IDLE, WALK, FALL }
+
 
 var _joints: Array[MuscleJoint]
-
-
 
 @onready var hip_L: MuscleJoint = $HJL_Hip_Hip
 @onready var thigh_L: MuscleJoint = $HJL_Hip_Thigh
@@ -23,9 +23,14 @@ var _joints: Array[MuscleJoint]
 @onready var farm_R: MuscleJoint = $HJR_UArm_FArm
 @onready var spine1: MuscleJoint = $HJ_Hip_Spine1
 
+@onready var body_hip: RigidBody3D = $Hip
 
 
+@onready var _tree: SceneTree = get_tree()
+var _state := StateType.IDLE
+var _state_start_msec := Time.get_ticks_msec()
 
+signal state_changed()
 
 func _ready() -> void:
 	# var add_joint := func(joint):
@@ -35,7 +40,7 @@ func _ready() -> void:
 	# print(len(_joints))
 	# for joint in _joints:
 	# 	print("@onready var calf_R: MuscleJoint = $", joint.name)
-
+	restart_state()
 
 
 func _process(_delta: float) -> void:
@@ -56,6 +61,31 @@ func _process(_delta: float) -> void:
 			j.stop_target()
 
 
+
+
+var state: StateType:
+	set(new_value):
+		if _state == new_value:
+			return
+		_state = new_value
+		restart_state()
+	get():
+		return _state
+
+func restart_state():
+	_state_start_msec = Time.get_ticks_msec()
+	match _state:
+		StateType.WALK:
+			start_stand_pose()
+			start_walk()
+		_: # StateType.IDLE
+			start_stand_pose()
+	state_changed.emit()
+
+func get_state_msec() -> int:
+	return Time.get_ticks_msec() - _state_start_msec
+
+
 func start_stand_pose():
 	hip_L.start_target_angle(0.0)
 	thigh_L.start_target_angle(0.0)
@@ -65,4 +95,44 @@ func start_stand_pose():
 	thigh_R.start_target_angle(0.0)
 	calf_R.start_target_angle(0.0)
 	foot_R.start_target_angle(0.0)
+
+	spine1.start_target_angle(0.0)
+	head.start_target_angle(0.0)
+	shoulder_L.stop_target()
+	uarm_L.stop_target()
+	farm_L.stop_target()
+	shoulder_R.stop_target()
+	uarm_R.stop_target()
+	farm_R.stop_target()
+	spine1.stop_target()
+
+var walk_param := { "foot": 0.3, "hip_L": 0.05, "calf_L": 0.5, "hip_R": 0.95, "calf_R": 0.0 }
+func start_walk():
+	foot_L.target_angle_range = walk_param["foot"]
+	foot_R.target_angle_range = walk_param["foot"]
+
+	for q in 5000:
+		check_fall()
+		if state != StateType.WALK: return
+		hip_L.target_angle_range = walk_param["hip_L"]
+		calf_L.target_angle_range = walk_param["calf_L"]
+		hip_R.target_angle_range = walk_param["hip_R"]
+		calf_R.target_angle_range = walk_param["calf_R"]
+		await _tree.create_timer(1.0).timeout
+
+		check_fall()
+		if state != StateType.WALK: return
+		hip_L.target_angle_range = walk_param["hip_R"]
+		calf_L.target_angle_range = walk_param["calf_R"]
+		hip_R.target_angle_range = walk_param["hip_L"]
+		calf_R.target_angle_range = walk_param["calf_L"]
+		await _tree.create_timer(1.0).timeout
+
+	state = StateType.FALL
+
+
+func check_fall() -> void:
+	if body_hip.global_transform.basis.y.dot(Vector3.UP) < 0.0:
+		state = StateType.FALL
+
 

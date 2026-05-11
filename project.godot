@@ -13,7 +13,19 @@ config_version=5
 config/name="evo-3"
 run/main_scene="uid://bwitclrmbneod"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://texture/icon.svg"
+
+[autoload]
+
+DB="*uid://vevensmtla78"
+
+[editor]
+
+movie_writer/movie_file="C:/SAVES/godot4/evo-3/movies/test.avi"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg")
 
 [input]
 
