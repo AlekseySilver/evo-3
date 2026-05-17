@@ -10,6 +10,11 @@ var _selected_muscle: MuscleJoint = null
 func _ready() -> void:
 	instantiate_skel()
 
+	# var py := PythonRunner.new()
+	# py.fire("pytest01")
+	# var res = await py.run_completed
+	# print(res)
+
 
 func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_ESCAPE):

@@ -1,5 +1,6 @@
 class_name Xts
 
+#region GEOMETRY
 
 const SMALL_FLOAT = .000001
 const SIN05 = .08715574274765
@@ -84,6 +85,19 @@ static func node_distance_sq(a: Node3D, b: Node3D) -> float:
 
 
 
+static func get_center(control: Control) -> Vector2:
+	return control.size * 0.5 + control.position
+
+
+static func set_center(control: Control, center: Vector2) -> void:
+	control.position = control.size * -0.5 + center
+
+
+#endregion
+
+
+#region NODE
+
 
 static func first_child(node: Node, recursive: bool = false, name_class: String = "", name_node: String = "") -> Node:
 	for r in node.get_children():
@@ -109,13 +123,6 @@ static func foreach_child(node: Node, action: Callable, recursive: bool = false,
 					action.call(r)
 
 
-
-
-static func get_center(control: Control) -> Vector2:
-	return control.size * 0.5 + control.position
-
-
-static func set_center(control: Control, center: Vector2) -> void:
-	control.position = control.size * -0.5 + center
+#endregion
 
 
