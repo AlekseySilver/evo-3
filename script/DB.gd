@@ -60,3 +60,9 @@ func save_walk_session(fitness: float, param: Array) -> void:
 	for p in param:
 		p["session_id"] = session_id
 	_db.insert_rows("walk_param", param)
+
+
+
+func update_walk_session(session_id: int, fitness: float) -> void:
+	_db.update_rows("session", "id = {0}".format([session_id]), { "fitness": fitness })
+

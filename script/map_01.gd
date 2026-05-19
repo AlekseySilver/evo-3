@@ -63,13 +63,15 @@ func _on_btn_start_pressed() -> void:
 
 	DB._db.query("select id
 					from session s 
-					order by fitness desc
-					limit 5")
+					where fitness is null
+					--order by fitness desc
+					--limit 5")
 	var rows := DB._db.query_result
 	for row in rows:
 		# get params from DB
-		var select_condition : String = "session_id = %s" % [row["id"]]
-		var array : Array = DB._db.select_rows("walk_param", select_condition, ["joint", "range"])
+		var session_id: int = int(row["id"])
+		var select_condition: String = "session_id = %s" % [session_id]
+		var array: Array = DB._db.select_rows("walk_param", select_condition, ["joint", "range"])
 		# array.filter(func(p): return p.score > 20)
 
 		if _skel:
@@ -82,8 +84,13 @@ func _on_btn_start_pressed() -> void:
 		for a in array:
 			_skel.walk_param[a["joint"]] = a["range"]
 
+		var start_msec := Time.get_ticks_msec()
 		_skel.state = MuscleSkeleton.StateType.WALK
 		await _skel.state_changed
+
+		# save to DB
+		var sigmoid_fitness := 1.0 / (1.0 + exp(-0.00001 * (Time.get_ticks_msec() - start_msec)))
+		DB.update_walk_session(session_id, sigmoid_fitness)
 
 	$UI/BtnStart.disabled = false
 
