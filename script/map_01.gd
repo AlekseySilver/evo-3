@@ -64,12 +64,14 @@ func _on_btn_start_pressed() -> void:
 	DB._db.query("select id
 					from session s 
 					where fitness is null
+					order by id
 					--order by fitness desc
 					--limit 5")
 	var rows := DB._db.query_result
 	for row in rows:
 		# get params from DB
 		var session_id: int = int(row["id"])
+		$UI/SelectedNode.text = str(session_id)
 		var select_condition: String = "session_id = %s" % [session_id]
 		var array: Array = DB._db.select_rows("walk_param", select_condition, ["joint", "range"])
 		# array.filter(func(p): return p.score > 20)
@@ -85,11 +87,21 @@ func _on_btn_start_pressed() -> void:
 			_skel.walk_param[a["joint"]] = a["range"]
 
 		var start_msec := Time.get_ticks_msec()
+		var end_msec: Array[int]
 		_skel.state = MuscleSkeleton.StateType.WALK
-		await _skel.state_changed
+		var trigger = func():
+			end_msec.append(Time.get_ticks_msec())
+		_skel.state_changed.connect(trigger)
+		for sec in range(60):
+			await _tree.create_timer(1.0).timeout
+			if _skel.state != MuscleSkeleton.StateType.WALK:
+				break
+		if len(end_msec) == 0:
+			end_msec.append(Time.get_ticks_msec())
+		_skel.state_changed.disconnect(trigger)
 
 		# save to DB
-		var sigmoid_fitness := 1.0 / (1.0 + exp(-0.00001 * (Time.get_ticks_msec() - start_msec)))
+		var sigmoid_fitness := 1.0 / (1.0 + exp(-0.00001 * (end_msec[0] - start_msec)))
 		DB.update_walk_session(session_id, sigmoid_fitness)
 
 	$UI/BtnStart.disabled = false
@@ -115,14 +127,22 @@ func _on_btn_start_pressed_1() -> void:
 					"calf_R": randf_range(0.0, 0.2)
 				}
 
-		# TODO get params from DB
-
 		var start_msec := Time.get_ticks_msec()
+		var end_msec: Array[int]
 		_skel.state = MuscleSkeleton.StateType.WALK
-		await _skel.state_changed
-		
+		var trigger = func():
+			end_msec.append(Time.get_ticks_msec())
+		_skel.state_changed.connect(trigger)
+		for sec in range(60):
+			await _tree.create_timer(1.0).timeout
+			if _skel.state != MuscleSkeleton.StateType.WALK:
+				break
+		if len(end_msec) == 0:
+			end_msec.append(Time.get_ticks_msec())
+		_skel.state_changed.disconnect(trigger)
+
 		# save to DB
-		var sigmoid_fitness := 1.0 / (1.0 + exp(-0.00001 * (Time.get_ticks_msec() - start_msec)))
+		var sigmoid_fitness := 1.0 / (1.0 + exp(-0.00001 * (end_msec[0] - start_msec)))
 		var param := _skel.walk_param.keys().map(func(key): return {"joint": key, "range": _skel.walk_param[key]})
 		DB.save_walk_session(sigmoid_fitness, param)
 

@@ -33,6 +33,11 @@ var _state_start_msec := Time.get_ticks_msec()
 signal state_changed()
 
 func _ready() -> void:
+	PhysicsServer3D.body_add_collision_exception($Head.get_rid(), $Shoulder_L.get_rid())
+	PhysicsServer3D.body_add_collision_exception($Head.get_rid(), $Shoulder_R.get_rid())
+	PhysicsServer3D.body_add_collision_exception($Shoulder_L.get_rid(), $Shoulder_R.get_rid())
+
+
 	# var add_joint := func(joint):
 	# 	_joints.append(joint)
 	# Xts.foreach_child($Skel, add_joint, false, "MuscleJoint")

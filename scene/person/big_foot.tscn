@@ -50,11 +50,11 @@ height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rh2f5"]
 radius = 0.2
-height = 1.0
+height = 0.5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gtc74"]
 radius = 0.2
-height = 1.0
+height = 0.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tjhuf"]
 radius = 0.2
@@ -65,10 +65,10 @@ radius = 0.2
 height = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_11mux"]
-size = Vector3(1.4, 0.2, 2)
+size = Vector3(0.8, 0.2, 1.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ya1qf"]
-size = Vector3(1.4, 0.2, 2)
+size = Vector3(0.8, 0.2, 1.2)
 
 [node name="Skel" type="Node3D" unique_id=1084243133]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.9999999, 0, 0, 0, 1.0000001, 0, 0, 0)
@@ -87,7 +87,7 @@ mesh = SubResource("SphereMesh_3bmei")
 surface_material_override/0 = SubResource("StandardMaterial3D_hwbbs")
 
 [node name="Shoulder_L" type="RigidBody3D" parent="." unique_id=36673371]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.75116634, 3.5948477, -1.7881393e-07)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.475, 3.595, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shoulder_L" unique_id=1574418569]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -99,7 +99,7 @@ mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="UArm_L" type="RigidBody3D" parent="." unique_id=444693971]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -1.4265527, 3.2174883, -8.195639e-08)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.973, 3.2174883, -8.195639e-08)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UArm_L" unique_id=26378847]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -110,7 +110,8 @@ mesh = SubResource("CapsuleMesh_poccc")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="FArm_L" type="RigidBody3D" parent="." unique_id=843103774]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -1.4280288, 2.3153439, -2.2351742e-07)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.973, 2.3153439, -2.2351742e-07)
+mass = 0.9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FArm_L" unique_id=1828326568]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -121,7 +122,7 @@ mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Shoulder_R" type="RigidBody3D" parent="." unique_id=674447023]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.751, 3.595, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.47548202, 3.595, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shoulder_R" unique_id=1429809924]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -133,7 +134,7 @@ mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="UArm_R" type="RigidBody3D" parent="." unique_id=2132521824]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 1.427, 3.217, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.9727995, 3.217, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UArm_R" unique_id=1296664897]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -144,7 +145,8 @@ mesh = SubResource("CapsuleMesh_poccc")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="FArm_R" type="RigidBody3D" parent="." unique_id=539170089]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 1.428, 2.315, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.9737994, 2.315, 0)
+mass = 0.9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FArm_R" unique_id=1651010593]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -177,7 +179,7 @@ mesh = SubResource("CapsuleMesh_wh02t")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Hip_L" type="RigidBody3D" parent="." unique_id=1880806964]
-transform = Transform3D(1, 8.348877e-14, 0, 7.4506215e-09, 1.0000001, -1.4905552e-08, 0, -2.9806714e-08, 1, -0.5678639, 1.8948742, 0)
+transform = Transform3D(1, 8.348877e-14, 0, 7.4506215e-09, 1.0000001, -1.4905552e-08, 0, -2.9806714e-08, 1, -0.314, 1.895, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hip_L" unique_id=2134291010]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -189,7 +191,7 @@ mesh = SubResource("CapsuleMesh_gtc74")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Thigh_L" type="RigidBody3D" parent="." unique_id=1862795043]
-transform = Transform3D(1, 8.287815e-14, 0, 7.450622e-09, 1.0000002, -1.4905554e-08, 3.5390258e-08, -2.9806714e-08, 1, -1, 1.4682218, 0)
+transform = Transform3D(1, 8.287815e-14, 0, 7.450622e-09, 1.0000002, -1.4905554e-08, 3.5390258e-08, -2.9806714e-08, 1, -0.58, 1.4682218, 1.4929917e-08)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Thigh_L" unique_id=2010673845]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -200,7 +202,7 @@ mesh = SubResource("CapsuleMesh_11mux")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Calf_L" type="RigidBody3D" parent="." unique_id=1964968438]
-transform = Transform3D(1, -6.983262e-10, 0, 4.6570275e-10, 1.0000001, -2.9806714e-08, 3.5390258e-08, -8.783575e-12, 1, -1, 0.5889672, 0)
+transform = Transform3D(1, -6.983262e-10, 0, 4.6570275e-10, 1.0000001, -2.9806714e-08, 3.5390258e-08, -8.783575e-12, 1, -0.58, 0.5889672, 1.4929917e-08)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Calf_L" unique_id=1755829100]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -211,7 +213,8 @@ mesh = SubResource("CapsuleMesh_11mux")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Foot_L" type="RigidBody3D" parent="." unique_id=1003921487]
-transform = Transform3D(1, 0, 0, 2.328721e-10, 1, -4.4707875e-08, 5.5879354e-09, 0, 1, -1, 1.8053935e-08, -0.4409693)
+transform = Transform3D(1, 0, 0, 2.328721e-10, 1, -4.4707875e-08, 5.5879354e-09, 0, 1, -0.58, 1.39225955e-08, -0.34636444)
+mass = 0.8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Foot_L" unique_id=2104629146]
 shape = SubResource("BoxShape3D_11mux")
@@ -221,7 +224,7 @@ mesh = SubResource("BoxMesh_ya1qf")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Hip_R" type="RigidBody3D" parent="." unique_id=1551720682]
-transform = Transform3D(1, 8.348877e-14, 0, 7.450621e-09, 1, -1.490555e-08, 0, -2.9806714e-08, 1, 0.568, 1.895, 0)
+transform = Transform3D(1, 8.348877e-14, 0, 7.450621e-09, 1, -1.490555e-08, 0, -2.9806714e-08, 1, 0.3137273, 1.895, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hip_R" unique_id=1705309761]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -233,7 +236,7 @@ mesh = SubResource("CapsuleMesh_gtc74")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Thigh_R" type="RigidBody3D" parent="." unique_id=267572086]
-transform = Transform3D(1, 0, 0, 7.450581e-09, 1.0000002, 2.6077032e-08, 2.9802322e-08, 1.4901161e-08, 1, 1, 1.4682218, 0)
+transform = Transform3D(1, 0, 0, 7.450581e-09, 1.0000002, 2.6077032e-08, 2.9802322e-08, 1.4901161e-08, 1, 0.58, 1.4682218, -1.2625216e-08)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Thigh_R" unique_id=1975970381]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -244,7 +247,7 @@ mesh = SubResource("CapsuleMesh_11mux")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Calf_R" type="RigidBody3D" parent="." unique_id=1876911290]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 1.1175871e-08, 2.9802322e-08, 0, 1, 1, 0.58896714, 0)
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 1.1175871e-08, 2.9802322e-08, 0, 1, 0.58, 0.58896714, -1.2625216e-08)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Calf_R" unique_id=1476369694]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -255,7 +258,8 @@ mesh = SubResource("CapsuleMesh_11mux")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Foot_R" type="RigidBody3D" parent="." unique_id=580434296]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -0.40382004)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58, 8.881784e-16, -0.3092152)
+mass = 0.8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Foot_R" unique_id=1473679524]
 shape = SubResource("BoxShape3D_11mux")
@@ -281,7 +285,7 @@ angular_limit/enable = true
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=1457657636]
-transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999964, 0, 8.940697e-08, 0, -1, -1.4219803, 3.5842218, 3.2085003e-07)
+transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999964, 0, 8.940697e-08, 0, -1, -0.973, 3.584, 0)
 node_a = NodePath("../Shoulder_L")
 node_b = NodePath("../UArm_L")
 angular_limit/enable = true
@@ -290,7 +294,7 @@ angular_limit/lower = -1.3962634
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_UArm_FArm" type="HingeJoint3D" parent="." unique_id=1563336084]
-transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, -1.4352481, 2.7500806, 2.4013062e-08)
+transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, -0.973, 2.75, 0)
 node_a = NodePath("../UArm_L")
 node_b = NodePath("../FArm_L")
 angular_limit/enable = true
@@ -306,7 +310,7 @@ angular_limit/enable = true
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=2006128848]
-transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 1, 1.422, 3.584, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 1, 0.973, 3.584, 0)
 node_a = NodePath("../Shoulder_R")
 node_b = NodePath("../UArm_R")
 angular_limit/enable = true
@@ -315,7 +319,7 @@ angular_limit/lower = -1.3962634
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_UArm_FArm" type="HingeJoint3D" parent="." unique_id=527871323]
-transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 1.435, 2.75, 0)
+transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0.973, 2.75, 0)
 node_a = NodePath("../UArm_R")
 node_b = NodePath("../FArm_R")
 angular_limit/enable = true
@@ -343,7 +347,7 @@ motor/max_impulse = 2.0
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_Hip_Thigh" type="HingeJoint3D" parent="." unique_id=273055972]
-transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999976, 0, 8.940697e-08, 0, -1, -1, 1.9116312, 0)
+transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999976, 0, 8.940697e-08, 0, -1, -0.56, 1.912, 0)
 node_a = NodePath("../Hip_L")
 node_b = NodePath("../Thigh_L")
 angular_limit/enable = true
@@ -352,7 +356,7 @@ angular_limit/lower = -1.3962634
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_Thigh_Calf" type="HingeJoint3D" parent="." unique_id=317913748]
-transform = Transform3D(-5.9604645e-08, 0, 1, 7.451019e-08, 0.9999999, 9.313639e-10, -1, 0, -5.9604645e-08, -1, 1.0380547, 0)
+transform = Transform3D(-5.9604645e-08, 0, 1, 7.451019e-08, 0.9999999, 9.313639e-10, -1, 0, -5.9604645e-08, -0.6, 1.0380547, -2.6991199e-08)
 node_a = NodePath("../Thigh_L")
 node_b = NodePath("../Calf_L")
 angular_limit/enable = true
@@ -361,7 +365,7 @@ angular_limit/lower = 0.0
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_Calf_Foot" type="HingeJoint3D" parent="." unique_id=1283329375]
-transform = Transform3D(-5.9604645e-08, 0, 1, 8.9411344e-08, 0.9999999, 1.6298557e-09, -1, 0, -5.9604645e-08, -1, 0.11429608, 0)
+transform = Transform3D(-5.9604645e-08, 0, 1, 8.9411344e-08, 0.9999999, 1.6298557e-09, -1, 0, -5.9604645e-08, -0.6, 0.11429608, -2.6991199e-08)
 node_a = NodePath("../Calf_L")
 node_b = NodePath("../Foot_L")
 angular_limit/enable = true
@@ -380,7 +384,7 @@ motor/max_impulse = 2.0
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_Hip_Thigh" type="HingeJoint3D" parent="." unique_id=709117702]
-transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 1, 1.9119996, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 0.56, 1.912, 0)
 node_a = NodePath("../Hip_R")
 node_b = NodePath("../Thigh_R")
 angular_limit/enable = true
@@ -389,7 +393,7 @@ angular_limit/lower = -1.3962634
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_Thigh_Calf" type="HingeJoint3D" parent="." unique_id=722872662]
-transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e-10, -1, 0, -5.9604645e-08, 1, 1.0380547, 0)
+transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e-10, -1, 0, -5.9604645e-08, 0.6, 1.0380547, 1.9689846e-08)
 node_a = NodePath("../Thigh_R")
 node_b = NodePath("../Calf_R")
 angular_limit/enable = true
@@ -398,7 +402,7 @@ angular_limit/lower = 0.0
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_Calf_Foot" type="HingeJoint3D" parent="." unique_id=436475635]
-transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e-10, -1, 0, -5.9604645e-08, 1, 0.11429608, 0)
+transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e-10, -1, 0, -5.9604645e-08, 0.6, 0.11429608, 1.9689846e-08)
 node_a = NodePath("../Calf_R")
 node_b = NodePath("../Foot_R")
 angular_limit/enable = true
