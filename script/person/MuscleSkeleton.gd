@@ -137,7 +137,7 @@ func start_walk():
 
 
 func check_fall() -> void:
-	if body_hip.global_transform.basis.y.dot(Vector3.UP) < 0.0:
+	if body_hip.global_transform.basis.y.dot(Vector3.UP) < Xts.SIN15:
 		state = StateType.FALL
 
 
