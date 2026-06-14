@@ -53,6 +53,9 @@ func _physics_process(_delta: float) -> void:
 	# 	var need = _target.global_position + offset
 	# 	position = position.lerp(need, blend)
 
+	if _grabber_target:
+		_grabber_target.apply_force((_grabber_point - _grabber_target.global_position) * grabber_force)
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

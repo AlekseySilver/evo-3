@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://crtxbr1nqroje"]
+
+[ext_resource type="PackedScene" uid="uid://ct1npgi8kuhp3" path="res://scene/map/map_base.tscn" id="1_ps2kl"]
+
+[node name="Node3D" unique_id=313802072 instance=ExtResource("1_ps2kl")]
+
+[node name="InstPoint" parent="." index="4" unique_id=1663889403]
+transform = Transform3D(1, 0, 0, 0, 0.14266352, 0.98977125, 0, -0.98977125, 0.14266352, 0, 1.0554857, -0.09495122)

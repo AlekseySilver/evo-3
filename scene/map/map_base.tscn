@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bwitclrmbneod"]
+[gd_scene format=3 uid="uid://ct1npgi8kuhp3"]
 
-[ext_resource type="Script" uid="uid://bmw20ao02llr7" path="res://script/map_01.gd" id="1_ixmo8"]
-[ext_resource type="Script" uid="uid://dcxu6i4gjoj5m" path="res://script/OrbCamera.gd" id="2_4q1tj"]
+[ext_resource type="Script" uid="uid://c2vkeobgclt2q" path="res://script/map/map_stand_up.gd" id="1_jhpso"]
+[ext_resource type="Script" uid="uid://dcxu6i4gjoj5m" path="res://script/OrbCamera.gd" id="2_b822l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rh2f5"]
 
@@ -26,7 +26,7 @@ albedo_color = Color(0.35686275, 0.18039216, 0.03529412, 1)
 albedo_color = Color(0, 0.18039216, 0.28235295, 1)
 
 [node name="Node3D" type="Node3D" unique_id=313802072]
-script = ExtResource("1_ixmo8")
+script = ExtResource("1_jhpso")
 
 [node name="UI" type="Control" parent="." unique_id=1450274888]
 layout_mode = 3
@@ -69,7 +69,8 @@ metadata/_edit_use_anchors_ = true
 [node name="Camera3D" type="Camera3D" parent="." unique_id=499972976]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4414597, 2.3974595, 9.943747)
 environment = SubResource("Environment_wh02t")
-script = ExtResource("2_4q1tj")
+script = ExtResource("2_b822l")
+grabber_force = 100.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1503839319]
 transform = Transform3D(-0.27100366, 0.72854626, -0.62910837, 0, 0.65356594, 0.7568696, 0.9625783, 0.20511444, -0.17711875, -2.334771, 1.9826233, -1.6074517)
@@ -95,7 +96,7 @@ mesh = SubResource("PlaneMesh_ukpqo")
 surface_material_override/0 = SubResource("StandardMaterial3D_rh2f5")
 
 [node name="InstPoint" type="Node3D" parent="." unique_id=1663889403]
-transform = Transform3D(-0.41620147, 0, 0.90927243, 0, 1, 0, -0.90927243, 0, -0.41620147, 0, 0.4510038, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4510038, 0)
 
 [connection signal="drag_ended" from="UI/TargetAngleVSlider" to="." method="_on_target_angle_v_slider_drag_ended"]
 [connection signal="pressed" from="UI/BtnStart" to="." method="_on_btn_start_pressed"]

@@ -282,6 +282,7 @@ transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637
 node_a = NodePath("../Spine1")
 node_b = NodePath("../Shoulder_L")
 angular_limit/enable = true
+angular_limit/lower = -2.9670596
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=1457657636]
@@ -299,7 +300,7 @@ node_a = NodePath("../UArm_L")
 node_b = NodePath("../FArm_L")
 angular_limit/enable = true
 angular_limit/upper = 0.0
-angular_limit/lower = -1.134464
+angular_limit/lower = -2.0943952
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_Spine1_Shoulder" type="HingeJoint3D" parent="." unique_id=957050775]
@@ -307,6 +308,7 @@ transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637
 node_a = NodePath("../Spine1")
 node_b = NodePath("../Shoulder_R")
 angular_limit/enable = true
+angular_limit/lower = -2.9670596
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=2006128848]
@@ -324,7 +326,7 @@ node_a = NodePath("../UArm_R")
 node_b = NodePath("../FArm_R")
 angular_limit/enable = true
 angular_limit/upper = 0.0
-angular_limit/lower = -1.134464
+angular_limit/lower = -2.0943952
 script = ExtResource("3_1kqo7")
 
 [node name="HJ_Hip_Spine1" type="HingeJoint3D" parent="." unique_id=584459437]
@@ -332,8 +334,9 @@ transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e
 node_a = NodePath("../Hip")
 node_b = NodePath("../Spine1")
 angular_limit/enable = true
-angular_limit/upper = 0.0
-angular_limit/lower = 0.0
+angular_limit/upper = 0.6981317
+angular_limit/lower = -0.5235988
+motor/max_impulse = 1.5
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_Hip_Hip" type="HingeJoint3D" parent="." unique_id=829647517]
@@ -341,8 +344,8 @@ transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e
 node_a = NodePath("../Hip")
 node_b = NodePath("../Hip_L")
 angular_limit/enable = true
-angular_limit/upper = 0.43633232
-angular_limit/lower = -1.134464
+angular_limit/upper = 0.5235988
+angular_limit/lower = -2.0943952
 motor/max_impulse = 2.0
 script = ExtResource("3_1kqo7")
 
@@ -360,7 +363,7 @@ transform = Transform3D(-5.9604645e-08, 0, 1, 7.451019e-08, 0.9999999, 9.313639e
 node_a = NodePath("../Thigh_L")
 node_b = NodePath("../Calf_L")
 angular_limit/enable = true
-angular_limit/upper = 1.134464
+angular_limit/upper = 2.0943952
 angular_limit/lower = 0.0
 script = ExtResource("3_1kqo7")
 
@@ -378,8 +381,8 @@ transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637
 node_a = NodePath("../Hip")
 node_b = NodePath("../Hip_R")
 angular_limit/enable = true
-angular_limit/upper = 0.43633232
-angular_limit/lower = -1.134464
+angular_limit/upper = 0.5235988
+angular_limit/lower = -2.0943952
 motor/max_impulse = 2.0
 script = ExtResource("3_1kqo7")
 
@@ -397,7 +400,7 @@ transform = Transform3D(-5.9604645e-08, 0, 1, 2.980671e-08, 0.9999999, 4.657027e
 node_a = NodePath("../Thigh_R")
 node_b = NodePath("../Calf_R")
 angular_limit/enable = true
-angular_limit/upper = 1.134464
+angular_limit/upper = 2.0943952
 angular_limit/lower = 0.0
 script = ExtResource("3_1kqo7")
 

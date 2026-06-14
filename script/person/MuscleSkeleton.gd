@@ -1,6 +1,6 @@
 class_name MuscleSkeleton extends Node3D
 
-enum StateType { IDLE, WALK, FALL }
+enum StateType { IDLE, WALK, FALL, STAND_UP }
 
 
 var _joints: Array[MuscleJoint]
@@ -83,6 +83,9 @@ func restart_state():
 		StateType.WALK:
 			start_stand_pose()
 			start_walk()
+		StateType.STAND_UP:
+			start_stand_up()
+			start_stand_pose()
 		_: # StateType.IDLE
 			start_stand_pose()
 	state_changed.emit()
@@ -109,7 +112,9 @@ func start_stand_pose():
 	shoulder_R.stop_target()
 	uarm_R.stop_target()
 	farm_R.stop_target()
-	spine1.stop_target()
+
+
+#region WALK
 
 var walk_param := { "foot": 0.3, "hip_L": 0.05, "calf_L": 0.5, "hip_R": 0.95, "calf_R": 0.0 }
 func start_walk():
@@ -135,9 +140,33 @@ func start_walk():
 
 	state = StateType.FALL
 
-
 func check_fall() -> void:
 	if body_hip.global_transform.basis.y.dot(Vector3.UP) < Xts.SIN15:
 		state = StateType.FALL
 
+#endregion
+
+
+#region STAND_UP
+
+func start_stand_up():
+	foot_L.target_angle_range = walk_param["foot"]
+	foot_R.target_angle_range = walk_param["foot"]
+
+	for q in 5000:
+		# check_stand()
+		if state != StateType.STAND_UP: return
+		hip_L.target_angle_range = walk_param["hip_L"]
+		calf_L.target_angle_range = walk_param["calf_L"]
+		hip_R.target_angle_range = walk_param["hip_R"]
+		calf_R.target_angle_range = walk_param["calf_R"]
+		await _tree.create_timer(1.0).timeout
+
+
+
+	state = StateType.FALL
+
+
+
+#endregion
 
