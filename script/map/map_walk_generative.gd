@@ -7,7 +7,7 @@ func _btn_start_action_override() -> void:
 	await _play_best_sessions()
 
 func _play_best_sessions() -> void:
-	DB._db.query("select id from session s order by fitness desc limit 5")
+	DB._db.query("select id from session s where type_id = 1 order by fitness desc limit 5")
 	var rows := DB._db.query_result
 	for row in rows:
 		# get params from DB
@@ -42,7 +42,7 @@ func _play_generations() -> void:
 
 	for _i in range(5):
 		var py := PythonRunner.new()
-		py.fire("generation_create")
+		py.fire("generation_create", [1])
 		var res = await py.run_completed
 		print(res)
 
@@ -158,6 +158,6 @@ func _play_create_random_sessions() -> void:
 		# save to DB
 		var sigmoid_fitness := 1.0 / (1.0 + exp(-0.00001 * (end_msec[0] - start_msec)))
 		var param := _skel.walk_param.keys().map(func(key): return {"joint": key, "range": _skel.walk_param[key]})
-		DB.save_walk_session(sigmoid_fitness, param)
+		DB.save_walk_session(1, sigmoid_fitness, param)
 
 

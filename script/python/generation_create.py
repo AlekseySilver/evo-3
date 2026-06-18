@@ -3,12 +3,13 @@
 from sqlite3 import connect
 from os import path
 from random import seed, random, randint
-
+from sys import argv
 
 # from os import getcwd
 # cwd_os = getcwd()
 # print(f"working dir: {cwd_os}")
 
+type_id = int(argv[1])
 
 
 POPULATION_SIZE = 200
@@ -21,7 +22,7 @@ db_path = 'data/train.db'
 if not path.exists(db_path):
 	raise Exception("db not exists")
 
-with connect(db_path, autocommit=True) as conn:
+with connect(db_path, isolation_level=None) as conn:
 	cursor = conn.cursor()
 
 	cursor.execute(f'''
@@ -29,12 +30,14 @@ with connect(db_path, autocommit=True) as conn:
 		from (
 			select s.id, s.fitness
 			from session s
-			where s.fitness > 0
+			where s.type_id = {type_id}
+			 and s.fitness > 0
 			order by s.fitness desc --s.ctime desc, s.id
 			limit {POPULATION_SIZE}
 		) s
 		join walk_param w on s.id = w.session_id		
 	''')
+	conn.commit()
 
 	sessions = []
 	session_id = -1
@@ -96,10 +99,12 @@ with connect(db_path, autocommit=True) as conn:
 
 	# save to DB
 	for session in offspring:
-		cursor.execute("INSERT INTO session (fitness) VALUES (null)")
+		cursor.execute(f"INSERT INTO session (type_id) VALUES ({type_id})")
 		session_id = cursor.lastrowid
+		conn.commit()
 		for joint, range_ in dict(session["params"]).items():
 			cursor.execute("INSERT INTO walk_param (session_id, joint, range) VALUES (?, ?, ?)", (session_id, joint, range_))
+			conn.commit()
 
 
 

@@ -32,21 +32,37 @@ height = 1.0
 radius = 0.2
 height = 1.0
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lmtnc"]
+radius = 0.2
+height = 0.7
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_l7huq"]
+radius = 0.2
+height = 0.7
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1kqo7"]
+radius = 0.2
+height = 0.6
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0uicr"]
+radius = 0.2
+height = 0.6
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wh02t"]
 radius = 0.2
-height = 1.0
+height = 0.6
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hwbbs"]
 radius = 0.2
-height = 1.0
+height = 0.7
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtc74"]
 radius = 0.2
-height = 1.0
+height = 0.7
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wh02t"]
 radius = 0.2
-height = 1.0
+height = 0.7
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rh2f5"]
 radius = 0.2
@@ -156,8 +172,30 @@ shape = SubResource("CapsuleShape3D_poccc")
 mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
+[node name="Spine3" type="RigidBody3D" parent="." unique_id=625957131]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 3.4426224, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spine3" unique_id=235368216]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_lmtnc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Spine3" unique_id=408762720]
+mesh = SubResource("CapsuleMesh_l7huq")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
+[node name="Spine2" type="RigidBody3D" parent="." unique_id=323060325]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 2.9669597, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spine2" unique_id=1523993203]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_1kqo7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Spine2" unique_id=1250633491]
+mesh = SubResource("CapsuleMesh_0uicr")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
 [node name="Spine1" type="RigidBody3D" parent="." unique_id=1090801415]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 3.1201496, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 2.5415168, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Spine1" unique_id=1765235622]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -168,7 +206,7 @@ mesh = SubResource("CapsuleMesh_hwbbs")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Hip" type="RigidBody3D" parent="." unique_id=680683994]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2742312, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.059331, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hip" unique_id=1841168582]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -268,21 +306,22 @@ shape = SubResource("BoxShape3D_11mux")
 mesh = SubResource("BoxMesh_ya1qf")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="HJ_Spine1_Head" type="HingeJoint3D" parent="." unique_id=1561683688]
+[node name="HJ_Spine3_Head" type="HingeJoint3D" parent="." unique_id=1561683688]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0, 3.6845946, 0)
-node_a = NodePath("../Spine1")
+node_a = NodePath("../Spine3")
 node_b = NodePath("../Head")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = 0.0
 script = ExtResource("3_1kqo7")
 
-[node name="HJL_Spine1_Shoulder" type="HingeJoint3D" parent="." unique_id=400825175]
+[node name="HJL_Spine3_Shoulder" type="HingeJoint3D" parent="." unique_id=400825175]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, -0.45, 3.595, 0)
-node_a = NodePath("../Spine1")
+node_a = NodePath("../Spine3")
 node_b = NodePath("../Shoulder_L")
 angular_limit/enable = true
 angular_limit/lower = -2.9670596
+motor/max_impulse = 2.0
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=1457657636]
@@ -292,6 +331,7 @@ node_b = NodePath("../UArm_L")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.3962634
+motor/max_impulse = 1.5
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_UArm_FArm" type="HingeJoint3D" parent="." unique_id=1563336084]
@@ -303,12 +343,13 @@ angular_limit/upper = 0.0
 angular_limit/lower = -2.0943952
 script = ExtResource("3_1kqo7")
 
-[node name="HJR_Spine1_Shoulder" type="HingeJoint3D" parent="." unique_id=957050775]
+[node name="HJR_Spine3_Shoulder" type="HingeJoint3D" parent="." unique_id=957050775]
 transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940697e-08, 0.45, 3.595, 0)
-node_a = NodePath("../Spine1")
+node_a = NodePath("../Spine3")
 node_b = NodePath("../Shoulder_R")
 angular_limit/enable = true
 angular_limit/lower = -2.9670596
+motor/max_impulse = 2.0
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=2006128848]
@@ -318,6 +359,7 @@ node_b = NodePath("../UArm_R")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.3962634
+motor/max_impulse = 1.5
 script = ExtResource("3_1kqo7")
 
 [node name="HJR_UArm_FArm" type="HingeJoint3D" parent="." unique_id=527871323]
@@ -329,14 +371,34 @@ angular_limit/upper = 0.0
 angular_limit/lower = -2.0943952
 script = ExtResource("3_1kqo7")
 
+[node name="HJ_Spine2_Spine3" type="HingeJoint3D" parent="." unique_id=396592853]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 0.9999998, 0, -1, 0, -4.371139e-08, 0, 3.1746702, 1.7463165e-08)
+node_a = NodePath("../Spine2")
+node_b = NodePath("../Spine3")
+angular_limit/enable = true
+angular_limit/upper = 0.7853982
+angular_limit/lower = -0.7853982
+motor/max_impulse = 3.0
+script = ExtResource("3_1kqo7")
+
+[node name="HJ_Spine1_Spine2" type="HingeJoint3D" parent="." unique_id=1428385189]
+transform = Transform3D(1, 0, 0, 0, -4.371138e-08, 1, 0, -0.9999998, -4.371139e-08, 0, 2.771937, 1.7463165e-08)
+node_a = NodePath("../Spine1")
+node_b = NodePath("../Spine2")
+angular_limit/enable = true
+angular_limit/upper = 1.3962634
+angular_limit/lower = -1.3962634
+motor/max_impulse = 3.0
+script = ExtResource("3_1kqo7")
+
 [node name="HJ_Hip_Spine1" type="HingeJoint3D" parent="." unique_id=584459437]
-transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940697e-08, 0, 2.715286, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 1, 0, 2.3157754, 1.7463165e-08)
 node_a = NodePath("../Hip")
 node_b = NodePath("../Spine1")
 angular_limit/enable = true
-angular_limit/upper = 0.6981317
-angular_limit/lower = -0.5235988
-motor/max_impulse = 1.5
+angular_limit/upper = 0.87266463
+angular_limit/lower = -0.87266463
+motor/max_impulse = 3.0
 script = ExtResource("3_1kqo7")
 
 [node name="HJL_Hip_Hip" type="HingeJoint3D" parent="." unique_id=829647517]
