@@ -75,6 +75,12 @@ func instantiate_skel(offset: Vector3 = Vector3.ZERO) -> MuscleSkeleton:
 	return skel
 
 
+func calc_fitness(start_msec: int, end_msec: int) -> float:
+	return 1.0 / (1.0 + exp(-0.00001 * (end_msec - start_msec)))
+
+func calc_fitness2(duration: float) -> float:
+	return 1.0 / (1.0 + exp(-0.01 * duration))
+
 
 
 # func _enter_tree():

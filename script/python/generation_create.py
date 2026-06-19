@@ -22,7 +22,7 @@ db_path = 'data/train.db'
 if not path.exists(db_path):
 	raise Exception("db not exists")
 
-with connect(db_path, isolation_level=None) as conn:
+with connect(db_path) as conn:
 	cursor = conn.cursor()
 
 	cursor.execute(f'''
@@ -101,10 +101,9 @@ with connect(db_path, isolation_level=None) as conn:
 	for session in offspring:
 		cursor.execute(f"INSERT INTO session (type_id) VALUES ({type_id})")
 		session_id = cursor.lastrowid
-		conn.commit()
 		for joint, range_ in dict(session["params"]).items():
 			cursor.execute("INSERT INTO walk_param (session_id, joint, range) VALUES (?, ?, ?)", (session_id, joint, range_))
-			conn.commit()
+	conn.commit()
 
 
 

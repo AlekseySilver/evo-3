@@ -32,6 +32,8 @@ var _joints: Array[MuscleJoint]
 var _state := StateType.IDLE
 var _state_start_msec := Time.get_ticks_msec()
 
+var _state_stats: Dictionary[StateType, Dictionary]
+
 signal state_changed()
 
 func _ready() -> void:
@@ -118,11 +120,35 @@ func _process(_delta: float) -> void:
 		calf_R.target_angle_range = 0.8
 
 
+func get_state_last_duration_second(state_: StateType) -> float:
+	var stat: Dictionary = _state_stats.get(state_)
+	if stat:
+		var d: int = stat["duration"]
+		if d < 0:
+			d = Time.get_ticks_msec() - stat["start_msec"]
+		return d / 1000.0
+	return -1.0
+
 
 var state: StateType:
 	set(new_value):
 		if _state == new_value:
 			return
+
+		var msec := Time.get_ticks_msec()
+
+		# prev state
+		var stat: Dictionary = _state_stats.get(_state, {})
+		if stat:
+			stat["duration"] = msec - stat["start_msec"]
+		_state_stats[_state] = stat
+		
+		# new state
+		stat = _state_stats.get(new_value, {})
+		stat["start_msec"] = msec
+		stat["duration"] = -1
+		_state_stats[new_value] = stat
+
 		_state = new_value
 		restart_state()
 	get():
@@ -192,8 +218,8 @@ func start_walk():
 
 	state = StateType.FALL
 
-func check_fall() -> void:
-	if body_hip.global_transform.basis.y.dot(Vector3.UP) < Xts.SIN15:
+func check_fall(min_up: float = Xts.SIN15) -> void:
+	if body_hip.global_transform.basis.y.dot(Vector3.UP) < min_up:
 		state = StateType.FALL
 
 #endregion
@@ -251,7 +277,7 @@ func start_stand_up():
 	start_stand_pose()
 
 	for q in 5000:
-		check_fall()
+		check_fall(Xts.SIN45)
 		if state != StateType.STAND_UP: return
 		await _tree.create_timer(1.0).timeout
 

@@ -116,7 +116,7 @@ func _play_fill_sessions_fitness_one(grid_cell: Dictionary) -> void:
 		skel.state_changed.disconnect(trigger)
 
 		# save to DB
-		var sigmoid_fitness := 1.0 / (1.0 + exp(-0.00001 * (end_msec[0] - start_msec)))
+		var sigmoid_fitness := calc_fitness(start_msec, end_msec[0])
 		DB.update_walk_session(session_id, sigmoid_fitness)
 		grid_cell["session_id"] = 0
 
@@ -156,7 +156,7 @@ func _play_create_random_sessions() -> void:
 		_skel.state_changed.disconnect(trigger)
 
 		# save to DB
-		var sigmoid_fitness := 1.0 / (1.0 + exp(-0.00001 * (end_msec[0] - start_msec)))
+		var sigmoid_fitness := calc_fitness(start_msec, end_msec[0])
 		var param := _skel.walk_param.keys().map(func(key): return {"joint": key, "range": _skel.walk_param[key]})
 		DB.save_walk_session(1, sigmoid_fitness, param)
 
