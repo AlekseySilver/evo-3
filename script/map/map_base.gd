@@ -66,6 +66,9 @@ func _btn_start_action_override() -> void:
 	await _tree.create_timer(0.5).timeout
 
 
+func _get_state_type_override() -> MuscleSkeleton.StateType:
+	return MuscleSkeleton.StateType.IDLE
+
 
 func instantiate_skel(offset: Vector3 = Vector3.ZERO) -> MuscleSkeleton:
 	var point := $InstPoint
@@ -81,6 +84,9 @@ func calc_fitness(start_msec: int, end_msec: int) -> float:
 func calc_fitness2(duration: float) -> float:
 	return 1.0 / (1.0 + exp(-0.01 * duration))
 
+
+func get_params4db(params: Dictionary) -> Array:
+	return params.keys().map(func(key): return {"joint": key, "range": params[key]})
 
 
 # func _enter_tree():

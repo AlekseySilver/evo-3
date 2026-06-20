@@ -1,6 +1,6 @@
 class_name MuscleSkeleton extends Node3D
 
-enum StateType { IDLE, WALK, FALL, STAND_UP }
+enum StateType { IDLE, WALK, FALL, STAND_UP, STAND_IDLE, RELAX }
 
 
 var _joints: Array[MuscleJoint]
@@ -30,7 +30,6 @@ var _joints: Array[MuscleJoint]
 
 @onready var _tree: SceneTree = get_tree()
 var _state := StateType.IDLE
-var _state_start_msec := Time.get_ticks_msec()
 
 var _state_stats: Dictionary[StateType, Dictionary]
 
@@ -56,68 +55,47 @@ func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_SPACE):
 		for j in _joints:
 			print(j.name, " angle = ", j.get_current_angle_deg())
-	if Input.is_key_pressed(KEY_Q):
-		for j in _joints:
-			j.start_target_angle(-45.0)
-	if Input.is_key_pressed(KEY_W):
-		for j in _joints:
-			j.start_target_angle(0.0)
-	if Input.is_key_pressed(KEY_E):
-		for j in _joints:
-			j.start_target_angle(45.0)
-	if Input.is_key_pressed(KEY_R):
-		for j in _joints:
-			j.stop_target()
-
-
-	if Input.is_key_pressed(KEY_1):
-		uarm_L.target_angle_range = 0.0
-		uarm_R.target_angle_range = 0.0
-		farm_L.target_angle_range = 0.9
-		farm_R.target_angle_range = 0.9
-
-	if Input.is_key_pressed(KEY_2):
-		spine2.start_target_angle(0.0)
-		spine1.start_target_angle(0.0)
-		head.start_target_angle(0.0)
-
-		shoulder_L.target_angle_range = 0.2
-		shoulder_R.target_angle_range = 0.2
-
-		foot_L.target_angle_range = 0.0
-		foot_R.target_angle_range = 0.0
-		spine3.target_angle_range = 1.0
-
-		hip_L.target_angle_range = 0.0
-		thigh_L.start_target_angle(0.0)
+	if Input.is_key_pressed(KEY_S):
+		thigh_L.target_angle_range = 1.0
 		calf_L.target_angle_range = 1.0
+		hip_L.target_angle_range = 0.2
+		foot_L.target_angle_range = 0.0
+		# spine1.target_angle_range = 0.7
 
-		hip_R.target_angle_range = 0.0
-		thigh_R.start_target_angle(0.0)
+	if Input.is_key_pressed(KEY_KP_5):
+		thigh_R.target_angle_range = 1.0
 		calf_R.target_angle_range = 1.0
+		hip_R.target_angle_range = 0.2
+		foot_R.target_angle_range = 0.0
+		# spine1.target_angle_range = 0.3
 
 
-		uarm_L.target_angle_range = 0.99
-		uarm_R.target_angle_range = 0.99
-		farm_L.target_angle_range = 0.2
-		farm_R.target_angle_range = 0.2
-
-	if Input.is_key_pressed(KEY_3):
-		farm_L.target_angle_range = 0.99
-		farm_R.target_angle_range = 0.99
-
-	if Input.is_key_pressed(KEY_4):
-		spine3.target_angle_range = 0.5
-
+	if Input.is_key_pressed(KEY_A):
+		thigh_L.target_angle_range = 0.5
+		calf_L.target_angle_range = 0.0
+		hip_L.target_angle_range = 0.8
 		foot_L.target_angle_range = 0.5
-		foot_R.target_angle_range = 0.5
-		shoulder_L.target_angle_range = 0.5
-		shoulder_R.target_angle_range = 0.5
 
-		hip_L.target_angle_range = 0.5
-		hip_R.target_angle_range = 0.5
-		calf_L.target_angle_range = 0.8
-		calf_R.target_angle_range = 0.8
+	if Input.is_key_pressed(KEY_Z):
+		thigh_L.target_angle_range = 0.5
+		calf_L.target_angle_range = 0.0
+		hip_L.target_angle_range = 0.99
+		foot_L.target_angle_range = 0.5
+
+	if Input.is_key_pressed(KEY_Q):
+		thigh_L.target_angle_range = 0.5
+		calf_L.target_angle_range = 0.0
+		hip_L.target_angle_range = 0.3
+		foot_L.target_angle_range = 0.5
+
+
+	if Input.is_key_pressed(KEY_KP_6):
+		thigh_R.target_angle_range = 0.5
+		calf_R.target_angle_range = 0.0
+		hip_R.target_angle_range = 0.8
+		foot_R.target_angle_range = 0.5
+
+
 
 
 func get_state_last_duration_second(state_: StateType) -> float:
@@ -155,19 +133,24 @@ var state: StateType:
 		return _state
 
 func restart_state():
-	_state_start_msec = Time.get_ticks_msec()
 	match _state:
 		StateType.WALK:
 			start_stand_pose()
 			start_walk()
 		StateType.STAND_UP:
 			start_stand_up()
+		StateType.STAND_IDLE:
+			start_stand_idle()
+		StateType.RELAX:
+			start_relax()
 		_: # StateType.IDLE
 			start_stand_pose()
 	state_changed.emit()
 
-func get_state_msec() -> int:
-	return Time.get_ticks_msec() - _state_start_msec
+
+func start_relax():
+	for joint in _joints:
+		joint.stop_target()
 
 
 func start_stand_pose():
@@ -190,6 +173,14 @@ func start_stand_pose():
 	shoulder_R.stop_target()
 	uarm_R.stop_target()
 	farm_R.stop_target()
+
+
+#region STAND_IDLE
+
+func start_stand_idle():
+	pass
+
+#endregion
 
 
 #region WALK

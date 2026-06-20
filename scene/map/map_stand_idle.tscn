@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b2o828y7c83mg"]
+
+[ext_resource type="PackedScene" uid="uid://ct1npgi8kuhp3" path="res://scene/map/map_base.tscn" id="1_hdxo5"]
+[ext_resource type="Script" uid="uid://2h47v1dembof" path="res://script/map/map_stand_idle.gd" id="2_e8ckd"]
+
+[node name="Node3D" unique_id=313802072 instance=ExtResource("1_hdxo5")]
+script = ExtResource("2_e8ckd")
