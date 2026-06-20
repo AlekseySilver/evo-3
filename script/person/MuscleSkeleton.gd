@@ -55,45 +55,10 @@ func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_SPACE):
 		for j in _joints:
 			print(j.name, " angle = ", j.get_current_angle_deg())
+	
 	if Input.is_key_pressed(KEY_S):
-		thigh_L.target_angle_range = 1.0
-		calf_L.target_angle_range = 1.0
-		hip_L.target_angle_range = 0.2
-		foot_L.target_angle_range = 0.0
-		# spine1.target_angle_range = 0.7
-
-	if Input.is_key_pressed(KEY_KP_5):
-		thigh_R.target_angle_range = 1.0
-		calf_R.target_angle_range = 1.0
-		hip_R.target_angle_range = 0.2
-		foot_R.target_angle_range = 0.0
-		# spine1.target_angle_range = 0.3
-
-
-	if Input.is_key_pressed(KEY_A):
-		thigh_L.target_angle_range = 0.5
-		calf_L.target_angle_range = 0.0
-		hip_L.target_angle_range = 0.8
-		foot_L.target_angle_range = 0.5
-
-	if Input.is_key_pressed(KEY_Z):
-		thigh_L.target_angle_range = 0.5
-		calf_L.target_angle_range = 0.0
-		hip_L.target_angle_range = 0.99
-		foot_L.target_angle_range = 0.5
-
-	if Input.is_key_pressed(KEY_Q):
-		thigh_L.target_angle_range = 0.5
-		calf_L.target_angle_range = 0.0
-		hip_L.target_angle_range = 0.3
-		foot_L.target_angle_range = 0.5
-
-
-	if Input.is_key_pressed(KEY_KP_6):
-		thigh_R.target_angle_range = 0.5
-		calf_R.target_angle_range = 0.0
-		hip_R.target_angle_range = 0.8
-		foot_R.target_angle_range = 0.5
+		state = StateType.STAND_IDLE
+		print(state)
 
 
 
@@ -177,8 +142,60 @@ func start_stand_pose():
 
 #region STAND_IDLE
 
+var stand_idle_param := { "fall_threshold": 0.98, "step_delay": 0.5, "next_delay": 0.5, "side_rate": 0.5, "fwd_rate": 1.0 }
+
 func start_stand_idle():
-	pass
+	var thigh: MuscleJoint
+	var calf: MuscleJoint
+	var hip: MuscleJoint
+	var foot: MuscleJoint
+	var up := Vector3.UP
+
+	while state == StateType.STAND_IDLE:
+		# check_fall()
+		# if state != StateType.STAND_IDLE: return
+
+		var s1b := body_hip.global_basis
+		var right := s1b.x
+		var forward := up.cross(right).normalized()
+		right = forward.cross(up)
+		
+		var up_dot := s1b.y.dot(up)
+		print(up_dot)
+		if up_dot < stand_idle_param["fall_threshold"]:
+			var right_dot := s1b.y.dot(right)
+			if right_dot > 0.0:
+				thigh = thigh_R
+				calf = calf_R
+				hip = hip_R
+				foot = foot_R
+				spine1.target_angle_range = 0.3
+			else:
+				thigh = thigh_L
+				calf = calf_L
+				hip = hip_L
+				foot = foot_L
+				spine1.target_angle_range = 0.7
+
+			thigh.target_angle_range = 1.0
+			calf.target_angle_range = 1.0
+			hip.target_angle_range = 0.2
+			foot.target_angle_range = 0.0
+			
+			await _tree.create_timer(stand_idle_param["step_delay"]).timeout
+			if state != StateType.STAND_IDLE: return
+
+			var fwd_dot := s1b.y.dot(forward)
+
+			hip.target_angle_range = clampf(0.8 - fwd_dot * stand_idle_param["fwd_rate"], 0.0, 1.0)
+			thigh.target_angle_range = clampf(1.0 - abs(right_dot) * stand_idle_param["side_rate"], 0.0, 1.0)
+			calf.target_angle_range = 0.0
+			foot.target_angle_range = 0.5
+			spine1.target_angle_range = 0.5
+
+		await _tree.create_timer(stand_idle_param["next_delay"]).timeout
+
+	state = StateType.FALL
 
 #endregion
 

@@ -26,5 +26,3 @@ func _btn_start_action_override() -> void:
 	# _play_create_random_sessions()
 	_play_best_sessions()
 	# _play_generations()
-
-
