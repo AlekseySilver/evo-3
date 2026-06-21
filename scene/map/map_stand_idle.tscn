@@ -5,3 +5,6 @@
 
 [node name="Node3D" unique_id=313802072 instance=ExtResource("1_hdxo5")]
 script = ExtResource("2_e8ckd")
+
+[node name="InstPoint" parent="." index="4" unique_id=1663889403]
+transform = Transform3D(0.96501195, 0.2584133, 0.044436038, -0.26220602, 0.9510533, 0.1635405, -3.7252903e-09, -0.16946992, 0.9855354, 0, 0.4510038, 0)

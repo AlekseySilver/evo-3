@@ -144,11 +144,11 @@ func _play_fill_sessions_fitness_one(grid_cell: Dictionary) -> void:
 
 
 
-func _play_create_random_sessions() -> void:
+func _play_create_random_sessions(count: int = 5) -> void:
 	$UI/SelectedNode.text = "_play_create_random_sessions"
 	randomize()
 
-	for i in range(50):
+	for i in range(count):
 		$UI/SelectedNode.text = str(i)
 		if _skel:
 			_skel.queue_free()
