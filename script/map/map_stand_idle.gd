@@ -27,7 +27,7 @@ func _get_skel_params4db_override(skel: MuscleSkeleton) -> Array:
 
 
 func _btn_start_action_override() -> void:
-	# _play_reset()
+	_play_reset()
 	# _play_create_random_sessions(81)
-	_play_best_sessions()
+	# _play_best_sessions()
 	# _play_generations(10, true)

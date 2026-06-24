@@ -59,6 +59,16 @@ func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_S):
 		state = StateType.STAND_IDLE
 		print(state)
+	# 	hip_L.target_angle_range = 0.2
+	# 	thigh_L.target_angle_range = 1.0
+	# 	calf_L.target_angle_range = 1.0
+	# 	foot_L.target_angle_range = 0.0
+
+	# if Input.is_key_pressed(KEY_A):
+	# 	hip_L.target_angle_range = 0.8
+	# 	thigh_L.target_angle_range = 1.0
+	# 	calf_L.target_angle_range = 0.0
+	# 	foot_L.target_angle_range = 0.4
 
 
 
@@ -143,10 +153,10 @@ func start_stand_pose():
 #region STAND_IDLE
 
 var stand_idle_param := {
-		"fall_threshold": 0.999, "step_delay": 0.5, "next_delay": 0.5, "side_rate": 0.9, "fwd_rate": 1.0,
-		"spine3": 0.9, "spine1": 0.2,
-		"bend_hip": 0.2, "bend_thigh": 1.0, "bend_calf": 1.0, "bend_foot": 0.0, 
-		"straight_calf": 0.5, "straight_foot": 0.1
+		"spine3": 0.9, #"spine1": 0.2,
+		"bend_delay": 0.7, "bend_hip": 0.2, "bend_thigh": 1.0, "bend_calf": 1.0, "bend_foot": 0.0,
+		"unbend_delay": 0.5, "unbend_hip": 0.8, "unbend_thigh": 1.0, "unbend_calf": 0.0, "unbend_foot": 0.4,
+		"step_delay": 0.5, "step_hip": 1.0, "step_thigh": 0.9, "step_calf": 0.5, "step_foot": 0.1
 	}
 
 func start_stand_idle():
@@ -155,8 +165,9 @@ func start_stand_idle():
 	var hip: MuscleJoint
 	var foot: MuscleJoint
 	var up := Vector3.UP
+	var fall_threshold := 0.999
 
-	stand_idle_param["fall_threshold"] = 0.999 # debug
+
 
 	spine3.target_angle_range = stand_idle_param["spine3"]
 	while state == StateType.STAND_IDLE:
@@ -170,38 +181,62 @@ func start_stand_idle():
 		
 		var up_dot := s1b.y.dot(up)
 		# print(up_dot)
-		if up_dot < stand_idle_param["fall_threshold"]:
+		if up_dot < fall_threshold:
 			var right_dot := s1b.y.dot(right)
 			if right_dot > 0.0:
 				thigh = thigh_R
 				calf = calf_R
 				hip = hip_R
 				foot = foot_R
-				spine1.target_angle_range = 0.5 - stand_idle_param["spine1"]
+				# spine1.target_angle_range = 0.5 - stand_idle_param["spine1"]
 			else:
 				thigh = thigh_L
 				calf = calf_L
 				hip = hip_L
 				foot = foot_L
-				spine1.target_angle_range = 0.5 + stand_idle_param["spine1"]
+				# spine1.target_angle_range = 0.5 + stand_idle_param["spine1"]
 
 			hip.target_angle_range = stand_idle_param["bend_hip"]
 			thigh.target_angle_range = stand_idle_param["bend_thigh"]
 			calf.target_angle_range = stand_idle_param["bend_calf"]
 			foot.target_angle_range = stand_idle_param["bend_foot"]
-			
+
+			await _tree.create_timer(stand_idle_param["unbend_delay"]).timeout
+			if state != StateType.STAND_IDLE: return
+
+			hip.target_angle_range = stand_idle_param["unbend_hip"]
+			thigh.target_angle_range = stand_idle_param["unbend_thigh"]
+			calf.target_angle_range = stand_idle_param["unbend_calf"]
+			foot.target_angle_range = stand_idle_param["unbend_foot"]
+
+			if thigh == thigh_L:
+				thigh = thigh_R
+				calf = calf_R
+				hip = hip_R
+				foot = foot_R
+			else:
+				thigh = thigh_L
+				calf = calf_L
+				hip = hip_L
+				foot = foot_L
+
+			hip.target_angle_range = stand_idle_param["bend_hip"]
+			thigh.target_angle_range = stand_idle_param["bend_thigh"]
+			calf.target_angle_range = stand_idle_param["bend_calf"]
+			foot.target_angle_range = stand_idle_param["bend_foot"]
+
 			await _tree.create_timer(stand_idle_param["step_delay"]).timeout
 			if state != StateType.STAND_IDLE: return
 
 			var fwd_dot := s1b.y.dot(forward)
 
-			hip.target_angle_range = 0.8 - fwd_dot * stand_idle_param["fwd_rate"]
-			thigh.target_angle_range = 1.0 - abs(right_dot) * stand_idle_param["side_rate"]
-			calf.target_angle_range = -fwd_dot * stand_idle_param["straight_calf"]
-			foot.target_angle_range = 0.4 + fwd_dot * stand_idle_param["straight_foot"]
-			spine1.target_angle_range = 0.5
+			hip.target_angle_range = 0.8 - fwd_dot * stand_idle_param["step_hip"]
+			thigh.target_angle_range = 1.0 - abs(right_dot) * stand_idle_param["step_thigh"]
+			calf.target_angle_range = -fwd_dot * stand_idle_param["step_calf"]
+			foot.target_angle_range = 0.4 + fwd_dot * stand_idle_param["step_foot"]
+			# spine1.target_angle_range = 0.5
 
-		await _tree.create_timer(stand_idle_param["next_delay"]).timeout
+		await _tree.create_timer(stand_idle_param["bend_delay"]).timeout
 
 	state = StateType.FALL
 
