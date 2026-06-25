@@ -70,12 +70,15 @@ func _play_generations(count: int = 1, generation_create: bool = false) -> void:
 		_skel.queue_free()
 		_skel = null
 
-	for _i in range(count):
+	for i in range(count):
+		$UI/SelectedNode.text = str(i)
 		if generation_create:
+			$UI/SelectedNode.text += " generation_create"
 			var py := PythonRunner.new()
 			py.fire("generation_create", [_get_session_type_id_override()])
 			var res = await py.run_completed
 			print(res)
+			
 
 		await _play_fill_sessions_fitness()
 
@@ -85,7 +88,7 @@ func _play_fill_sessions_fitness(parallel_count: int = 10, space_between: float 
 		_skel.queue_free()
 		_skel = null
 
-	var offset := space_between * parallel_count * -0.5
+	var offset := space_between * parallel_count * 0.5
 	var grid := []
 	for i in range(parallel_count):
 		grid.append({ "offset": Vector3(i * space_between - offset, 0.0, 0.0), "session_id": 0, "skel": null })

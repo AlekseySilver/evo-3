@@ -155,8 +155,8 @@ func start_stand_pose():
 var stand_idle_param := {
 		"spine3": 0.9, #"spine1": 0.2,
 		"bend_delay": 0.7, "bend_hip": 0.2, "bend_thigh": 1.0, "bend_calf": 1.0, "bend_foot": 0.0,
-		"unbend_delay": 0.5, "unbend_hip": 0.8, "unbend_thigh": 1.0, "unbend_calf": 0.0, "unbend_foot": 0.4,
-		"step_delay": 0.5, "step_hip": 1.0, "step_thigh": 0.9, "step_calf": 0.5, "step_foot": 0.1
+		"unbend_delay": 0.3, "unbend_hip": 0.8, "unbend_thigh": 1.0, "unbend_calf": 0.0, "unbend_foot": 0.4,
+		"step_delay": 0.7, "step_hip": 1.0, "step_thigh": 0.9, "step_calf": 0.5, "step_foot": 0.1
 	}
 
 func start_stand_idle():
@@ -171,7 +171,7 @@ func start_stand_idle():
 
 	spine3.target_angle_range = stand_idle_param["spine3"]
 	while state == StateType.STAND_IDLE:
-		check_fall()
+		check_fall(Xts.SIN45)
 		if state != StateType.STAND_IDLE: return
 
 		var s1b := body_hip.global_basis
@@ -202,6 +202,7 @@ func start_stand_idle():
 			foot.target_angle_range = stand_idle_param["bend_foot"]
 
 			await _tree.create_timer(stand_idle_param["unbend_delay"]).timeout
+			check_fall(Xts.SIN45)
 			if state != StateType.STAND_IDLE: return
 
 			hip.target_angle_range = stand_idle_param["unbend_hip"]
@@ -226,6 +227,7 @@ func start_stand_idle():
 			foot.target_angle_range = stand_idle_param["bend_foot"]
 
 			await _tree.create_timer(stand_idle_param["step_delay"]).timeout
+			check_fall(Xts.SIN45)
 			if state != StateType.STAND_IDLE: return
 
 			var fwd_dot := s1b.y.dot(forward)
