@@ -1,6 +1,6 @@
 class_name MuscleSkeleton extends Node3D
 
-enum StateType { IDLE, WALK, FALL, STAND_UP, STAND_IDLE, RELAX }
+enum StateType { IDLE, WALK, FALL, STAND_UP, STAND_IDLE, RELAX, BACK_2_FRONT }
 
 
 var _joints: Array[MuscleJoint]
@@ -57,19 +57,39 @@ func _process(_delta: float) -> void:
 			print(j.name, " angle = ", j.get_current_angle_deg())
 	
 	if Input.is_key_pressed(KEY_S):
-		state = StateType.STAND_IDLE
+		state = StateType.BACK_2_FRONT
 		print(state)
-	# 	hip_L.target_angle_range = 0.2
-	# 	thigh_L.target_angle_range = 1.0
-	# 	calf_L.target_angle_range = 1.0
-	# 	foot_L.target_angle_range = 0.0
 
-	# if Input.is_key_pressed(KEY_A):
-	# 	hip_L.target_angle_range = 0.8
-	# 	thigh_L.target_angle_range = 1.0
-	# 	calf_L.target_angle_range = 0.0
-	# 	foot_L.target_angle_range = 0.4
+		# spine3.start_target_angle(0.0)
+		# spine1.start_target_angle(0.0)
+		# head.start_target_angle(0.0)
 
+		# uarm_L.target_angle_range = 1.0
+		# uarm_R.target_angle_range = 1.0
+		# farm_L.target_angle_range = 0.9
+		# farm_R.target_angle_range = 0.0
+		# shoulder_L.target_angle_range = 0.99
+		# shoulder_R.target_angle_range = 0.75
+		# foot_L.target_angle_range = 0.7
+		# foot_R.target_angle_range = 0.7
+
+		# hip_L.target_angle_range = 0.6
+		# thigh_L.target_angle_range = 1.0
+		# calf_L.target_angle_range = 0.0
+
+		# hip_R.target_angle_range = 0.8
+		# thigh_R.target_angle_range = 1.0
+		# calf_R.target_angle_range = 0.0
+
+		# spine2.target_angle_range = 0.0
+
+		# await _tree.create_timer(2.0).timeout
+		# thigh_L.target_angle_range = 0.0
+		# thigh_R.target_angle_range = 0.0
+
+		# await _tree.create_timer(2.0).timeout
+		# shoulder_L.target_angle_range = 0.5
+		# spine2.target_angle_range = 0.5
 
 
 
@@ -118,6 +138,8 @@ func restart_state():
 			start_stand_idle()
 		StateType.RELAX:
 			start_relax()
+		StateType.BACK_2_FRONT:
+			start_back2front()
 		_: # StateType.IDLE
 			start_stand_pose()
 	state_changed.emit()
@@ -148,6 +170,57 @@ func start_stand_pose():
 	shoulder_R.stop_target()
 	uarm_R.stop_target()
 	farm_R.stop_target()
+
+
+#region BACK_2_FRONT
+
+func check_front(min_up: float = Xts.SIN15) -> void:
+	if body_hip.global_transform.basis.z.y > min_up:
+		state = StateType.FALL
+
+func start_back2front():
+	# while state == StateType.BACK_2_FRONT:
+	# 	check_front()
+	# 	if state != StateType.BACK_2_FRONT: return
+
+	spine3.start_target_angle(0.0)
+	spine1.start_target_angle(0.0)
+	head.start_target_angle(0.0)
+
+	uarm_L.target_angle_range = 1.0
+	uarm_R.target_angle_range = 1.0
+	farm_L.target_angle_range = 0.9
+	farm_R.target_angle_range = 0.0
+	shoulder_L.target_angle_range = 0.99
+	shoulder_R.target_angle_range = 0.75
+	foot_L.target_angle_range = 0.7
+	foot_R.target_angle_range = 0.7
+
+	hip_L.target_angle_range = 0.6
+	thigh_L.target_angle_range = 1.0
+	calf_L.target_angle_range = 0.0
+
+	hip_R.target_angle_range = 0.8
+	thigh_R.target_angle_range = 1.0
+	calf_R.target_angle_range = 0.0
+
+	spine2.target_angle_range = 0.0
+
+	await _tree.create_timer(2.0).timeout
+	thigh_L.target_angle_range = 0.0
+	thigh_R.target_angle_range = 0.0
+	calf_R.target_angle_range = 0.5
+	
+
+	await _tree.create_timer(2.0).timeout
+	spine2.target_angle_range = 0.0
+	shoulder_L.target_angle_range = 0.5
+	calf_R.target_angle_range = 0.0
+
+	state = StateType.FALL
+
+
+#endregion
 
 
 #region STAND_IDLE
@@ -272,7 +345,7 @@ func start_walk():
 	state = StateType.FALL
 
 func check_fall(min_up: float = Xts.SIN15) -> void:
-	if body_hip.global_transform.basis.y.dot(Vector3.UP) < min_up:
+	if body_hip.global_transform.basis.y.y < min_up:
 		state = StateType.FALL
 
 #endregion

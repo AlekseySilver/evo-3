@@ -16,15 +16,21 @@ func _set_skel_params_from_array_override(__skel: MuscleSkeleton, _array: Array)
 func _get_skel_params4db_override(__skel: MuscleSkeleton) -> Array:
 	return []
 
-
-func _play_reset() -> void:
-	$UI/SelectedNode.text = "_play_reset"
+func _skel_reset(inst: bool = false) -> void:
+	$Camera3D.target_path = NodePath()
 	if _skel:
 		_skel.queue_free()
 		_skel = null
-	await _tree.create_timer(0.5).timeout
-	_skel = instantiate_skel()
-	await _tree.create_timer(0.5).timeout
+	if inst:
+		await _tree.create_timer(0.5).timeout
+		_skel = instantiate_skel()
+		await _tree.create_timer(0.5).timeout
+		$Camera3D.target_path = _skel.body_hip.get_path()
+
+
+func _play_reset() -> void:
+	$UI/SelectedNode.text = "_play_reset"
+	await _skel_reset(true)
 
 	# _skel.walk_param = {}
 	# # for a in array:
@@ -46,12 +52,7 @@ func _play_best_sessions() -> void:
 		var array: Array = await DB.select_rows_async("walk_param", select_condition, ["joint", "range"])
 		# array.filter(func(p): return p.score > 20)
 
-		if _skel:
-			_skel.queue_free()
-			_skel = null
-		await _tree.create_timer(0.5).timeout
-		_skel = instantiate_skel()
-		await _tree.create_timer(0.5).timeout
+		await _skel_reset(true)
 
 		_set_skel_params_from_array_override(_skel, array)
 
@@ -66,9 +67,7 @@ func _play_best_sessions() -> void:
 
 
 func _play_generations(count: int = 1, generation_create: bool = false) -> void:
-	if _skel:
-		_skel.queue_free()
-		_skel = null
+	await _skel_reset()
 
 	for i in range(count):
 		$UI/SelectedNode.text = str(i)
@@ -84,9 +83,7 @@ func _play_generations(count: int = 1, generation_create: bool = false) -> void:
 
 
 func _play_fill_sessions_fitness(parallel_count: int = 10, space_between: float = 10.0) -> void:
-	if _skel:
-		_skel.queue_free()
-		_skel = null
+	await _skel_reset()
 
 	var offset := space_between * parallel_count * 0.5
 	var grid := []
@@ -153,12 +150,7 @@ func _play_create_random_sessions(count: int = 5) -> void:
 
 	for i in range(count):
 		$UI/SelectedNode.text = str(i)
-		if _skel:
-			_skel.queue_free()
-			_skel = null
-		await _tree.create_timer(0.5).timeout
-		_skel = instantiate_skel()
-		await _tree.create_timer(0.5).timeout
+		await _skel_reset(true)
 
 		_set_skel_random_params_override(_skel)
 
