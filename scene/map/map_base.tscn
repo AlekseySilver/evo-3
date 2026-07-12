@@ -12,6 +12,9 @@ sky_material = SubResource("ProceduralSkyMaterial_rh2f5")
 background_mode = 2
 sky = SubResource("Sky_gtc74")
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0uicr"]
+rough = true
+
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ukpqo"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ukpqo"]
@@ -76,6 +79,7 @@ grabber_force = 100.0
 transform = Transform3D(-0.27100366, 0.72854626, -0.62910837, 0, 0.65356594, 0.7568696, 0.9625783, 0.20511444, -0.17711875, -2.334771, 1.9826233, -1.6074517)
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=456925185]
+physics_material_override = SubResource("PhysicsMaterial_0uicr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1738635560]
 shape = SubResource("WorldBoundaryShape3D_ukpqo")

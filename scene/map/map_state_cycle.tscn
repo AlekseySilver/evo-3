@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b8t0r3fckxmvg"]
+
+[ext_resource type="PackedScene" uid="uid://ct1npgi8kuhp3" path="res://scene/map/map_base.tscn" id="1_2ymya"]
+[ext_resource type="Script" uid="uid://nc51t38t1r8e" path="res://script/map/map_state_cycle.gd" id="2_2ymya"]
+
+[node name="Node3D" unique_id=313802072 instance=ExtResource("1_2ymya")]
+script = ExtResource("2_2ymya")
+
+[node name="InstPoint" parent="." index="4" unique_id=1663889403]
+transform = Transform3D(-0.06621536, -0.99780536, 9.313226e-10, -0.0149325235, 0.0009909384, -0.99988806, 0.99769366, -0.066207945, -0.014965368, 0, 1.0554857, -0.09495122)

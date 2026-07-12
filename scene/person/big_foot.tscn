@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dqkrbt0chjlr2"]
 
 [ext_resource type="Script" uid="uid://drigaxtpc5pty" path="res://script/person/MuscleSkeleton.gd" id="1_lmtnc"]
+[ext_resource type="PhysicsMaterial" uid="uid://d2rl1otqwtpne" path="res://scene/person/PMHuman.tres" id="2_1kqo7"]
 [ext_resource type="Texture2D" uid="uid://cvx2obe2ves1i" path="res://texture/icon.svg" id="2_l7huq"]
 [ext_resource type="Script" uid="uid://i55acddf6hmb" path="res://script/person/MuscleJoint.gd" id="3_1kqo7"]
 
@@ -92,6 +93,7 @@ script = ExtResource("1_lmtnc")
 
 [node name="Head" type="RigidBody3D" parent="." unique_id=620974628]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.00025443733, 4.1182675, 1.8626451e-08)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head" unique_id=1260157371]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -104,6 +106,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_hwbbs")
 
 [node name="Shoulder_L" type="RigidBody3D" parent="." unique_id=36673371]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.475, 3.595, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shoulder_L" unique_id=1574418569]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -116,6 +119,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="UArm_L" type="RigidBody3D" parent="." unique_id=444693971]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.973, 3.2174883, -8.195639e-08)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UArm_L" unique_id=26378847]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -128,6 +132,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 [node name="FArm_L" type="RigidBody3D" parent="." unique_id=843103774]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.973, 2.3153439, -2.2351742e-07)
 mass = 0.9
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FArm_L" unique_id=1828326568]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -139,6 +144,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Shoulder_R" type="RigidBody3D" parent="." unique_id=674447023]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.47548202, 3.595, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shoulder_R" unique_id=1429809924]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -151,6 +157,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="UArm_R" type="RigidBody3D" parent="." unique_id=2132521824]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.9727995, 3.217, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UArm_R" unique_id=1296664897]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -163,6 +170,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 [node name="FArm_R" type="RigidBody3D" parent="." unique_id=539170089]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.9737994, 2.315, 0)
 mass = 0.9
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FArm_R" unique_id=1651010593]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -174,6 +182,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Spine3" type="RigidBody3D" parent="." unique_id=625957131]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 3.4426224, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Spine3" unique_id=235368216]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -185,6 +194,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Spine2" type="RigidBody3D" parent="." unique_id=323060325]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 2.9669597, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Spine2" unique_id=1523993203]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -196,6 +206,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Spine1" type="RigidBody3D" parent="." unique_id=1090801415]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 2.5415168, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Spine1" unique_id=1765235622]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -207,6 +218,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Hip" type="RigidBody3D" parent="." unique_id=680683994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.059331, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hip" unique_id=1841168582]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -218,6 +230,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Hip_L" type="RigidBody3D" parent="." unique_id=1880806964]
 transform = Transform3D(1, 8.348877e-14, 0, 7.4506215e-09, 1.0000001, -1.4905552e-08, 0, -2.9806714e-08, 1, -0.314, 1.895, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hip_L" unique_id=2134291010]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -230,6 +243,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Thigh_L" type="RigidBody3D" parent="." unique_id=1862795043]
 transform = Transform3D(1, 8.287815e-14, 0, 7.450622e-09, 1.0000002, -1.4905554e-08, 3.5390258e-08, -2.9806714e-08, 1, -0.58, 1.4682218, 1.4929917e-08)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Thigh_L" unique_id=2010673845]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -241,6 +255,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Calf_L" type="RigidBody3D" parent="." unique_id=1964968438]
 transform = Transform3D(1, -6.983262e-10, 0, 4.6570275e-10, 1.0000001, -2.9806714e-08, 3.5390258e-08, -8.783575e-12, 1, -0.58, 0.5889672, 1.4929917e-08)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Calf_L" unique_id=1755829100]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -253,6 +268,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 [node name="Foot_L" type="RigidBody3D" parent="." unique_id=1003921487]
 transform = Transform3D(1, 0, 0, 2.328721e-10, 1, -4.4707875e-08, 5.5879354e-09, 0, 1, -0.58, 1.39225955e-08, -0.34636444)
 mass = 0.8
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Foot_L" unique_id=2104629146]
 shape = SubResource("BoxShape3D_11mux")
@@ -263,6 +279,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Hip_R" type="RigidBody3D" parent="." unique_id=1551720682]
 transform = Transform3D(1, 8.348877e-14, 0, 7.450621e-09, 1, -1.490555e-08, 0, -2.9806714e-08, 1, 0.3137273, 1.895, 0)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hip_R" unique_id=1705309761]
 transform = Transform3D(-4.37114e-08, -1, 0, 1.0000002, -4.371139e-08, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -275,6 +292,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Thigh_R" type="RigidBody3D" parent="." unique_id=267572086]
 transform = Transform3D(1, 0, 0, 7.450581e-09, 1.0000002, 2.6077032e-08, 2.9802322e-08, 1.4901161e-08, 1, 0.58, 1.4682218, -1.2625216e-08)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Thigh_R" unique_id=1975970381]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -286,6 +304,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="Calf_R" type="RigidBody3D" parent="." unique_id=1876911290]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, 1.1175871e-08, 2.9802322e-08, 0, 1, 0.58, 0.58896714, -1.2625216e-08)
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Calf_R" unique_id=1476369694]
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
@@ -298,6 +317,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 [node name="Foot_R" type="RigidBody3D" parent="." unique_id=580434296]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58, 8.881784e-16, -0.3092152)
 mass = 0.8
+physics_material_override = ExtResource("2_1kqo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Foot_R" unique_id=1473679524]
 shape = SubResource("BoxShape3D_11mux")

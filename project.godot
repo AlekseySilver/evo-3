@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="evo-3"
-run/main_scene="uid://bdxas1gioknj4"
+run/main_scene="uid://b8t0r3fckxmvg"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://texture/icon.svg"
 

@@ -7,6 +7,10 @@ func _get_session_type_id_override() -> int:
 func _get_state_type_override() -> MuscleSkeleton.StateType:
 	return MuscleSkeleton.StateType.IDLE
 
+func _get_cycle_state_type_override() -> MuscleSkeleton.CycleState:
+	return MuscleSkeleton.CycleState.IDLE
+
+
 func _set_skel_random_params_override(__skel: MuscleSkeleton) -> void:
 	pass
 
@@ -142,6 +146,8 @@ func _play_fill_sessions_fitness_one(grid_cell: Dictionary) -> void:
 	grid_cell["session_id"] = 0
 
 
+func _get_is_session_finished_override(skel: MuscleSkeleton) -> bool:
+	return skel.state != _get_state_type_override()
 
 
 func _play_create_random_sessions(count: int = 5) -> void:
@@ -155,9 +161,10 @@ func _play_create_random_sessions(count: int = 5) -> void:
 		_set_skel_random_params_override(_skel)
 
 		_skel.state = _get_state_type_override()
+		_skel.cycle_state = _get_cycle_state_type_override()
 		for sec in range(60):
 			await _tree.create_timer(1.0).timeout
-			if _skel.state != _get_state_type_override():
+			if _get_is_session_finished_override(_skel):
 				break
 
 		# save to DB
