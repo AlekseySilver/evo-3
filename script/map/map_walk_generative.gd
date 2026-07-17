@@ -8,20 +8,12 @@ func _get_state_type_override() -> MuscleSkeleton.StateType:
 
 func _set_skel_random_params_override(skel: MuscleSkeleton) -> void:
 	skel.walk_param = {
-			"foot": randf_range(0.1, 0.5),
-			"hip_L": randf_range(0.01, 0.2),
-			"calf_L": randf_range(0.3, 0.7),
-			"hip_R": randf_range(0.85, 0.99),
-			"calf_R": randf_range(0.0, 0.2)
+			"walk.foot": randf_range(0.1, 0.5),
+			"walk.hip_L": randf_range(0.01, 0.2),
+			"walk.calf_L": randf_range(0.3, 0.7),
+			"walk.hip_R": randf_range(0.85, 0.99),
+			"walk.calf_R": randf_range(0.0, 0.2)
 		}
-
-func _set_skel_params_from_array_override(skel: MuscleSkeleton, array: Array) -> void:
-	skel.walk_param = {}
-	for a in array:
-		skel.walk_param[a["joint"]] = a["range"]
-
-func _get_skel_params4db_override(skel: MuscleSkeleton) -> Array:
-	return get_params4db(skel.walk_param)
 
 
 

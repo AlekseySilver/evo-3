@@ -277,7 +277,7 @@ func start_stand_idle():
 
 
 
-	spine3.target_angle_range = walk_param.get("spine3", 0.9)
+	spine3.target_angle_range = walk_param.get("stand_idle.spine3", 0.9)
 	while state == StateType.STAND_IDLE:
 		check_fall(Xts.SIN45)
 		if state != StateType.STAND_IDLE: return
@@ -296,27 +296,27 @@ func start_stand_idle():
 				calf = calf_R
 				hip = hip_R
 				foot = foot_R
-				# spine1.target_angle_range = 0.5 - walk_param.get("spine1"]
+				# spine1.target_angle_range = 0.5 - walk_param.get("stand_idle.spine1"]
 			else:
 				thigh = thigh_L
 				calf = calf_L
 				hip = hip_L
 				foot = foot_L
-				# spine1.target_angle_range = 0.5 + walk_param.get("spine1"]
+				# spine1.target_angle_range = 0.5 + walk_param.get("stand_idle.spine1"]
 
-			hip.target_angle_range = walk_param.get("bend_hip", 0.2)
-			thigh.target_angle_range = walk_param.get("bend_thigh", 1.0)
-			calf.target_angle_range = walk_param.get("bend_calf", 1.0)
-			foot.target_angle_range = walk_param.get("bend_foot", 0.0)
+			hip.target_angle_range = walk_param.get("stand_idle.bend_hip", 0.2)
+			thigh.target_angle_range = walk_param.get("stand_idle.bend_thigh", 1.0)
+			calf.target_angle_range = walk_param.get("stand_idle.bend_calf", 1.0)
+			foot.target_angle_range = walk_param.get("stand_idle.bend_foot", 0.0)
 
-			await _tree.create_timer(walk_param.get("unbend_delay", 0.3)).timeout
+			await _tree.create_timer(walk_param.get("stand_idle.unbend_delay", 0.3)).timeout
 			check_fall(Xts.SIN45)
 			if state != StateType.STAND_IDLE: return
 
-			hip.target_angle_range = walk_param.get("unbend_hip", 0.8)
-			thigh.target_angle_range = walk_param.get("unbend_thigh", 1.0)
-			calf.target_angle_range = walk_param.get("unbend_calf", 0.0)
-			foot.target_angle_range = walk_param.get("unbend_foot", 0.4)
+			hip.target_angle_range = walk_param.get("stand_idle.unbend_hip", 0.8)
+			thigh.target_angle_range = walk_param.get("stand_idle.unbend_thigh", 1.0)
+			calf.target_angle_range = walk_param.get("stand_idle.unbend_calf", 0.0)
+			foot.target_angle_range = walk_param.get("stand_idle.unbend_foot", 0.4)
 
 			if thigh == thigh_L:
 				thigh = thigh_R
@@ -329,24 +329,24 @@ func start_stand_idle():
 				hip = hip_L
 				foot = foot_L
 
-			hip.target_angle_range = walk_param.get("bend_hip", 0.2)
-			thigh.target_angle_range = walk_param.get("bend_thigh", 1.0)
-			calf.target_angle_range = walk_param.get("bend_calf", 1.0)
-			foot.target_angle_range = walk_param.get("bend_foot", 0.0)
+			hip.target_angle_range = walk_param.get("stand_idle.bend_hip", 0.2)
+			thigh.target_angle_range = walk_param.get("stand_idle.bend_thigh", 1.0)
+			calf.target_angle_range = walk_param.get("stand_idle.bend_calf", 1.0)
+			foot.target_angle_range = walk_param.get("stand_idle.bend_foot", 0.0)
 
-			await _tree.create_timer(walk_param.get("step_delay", 0.7)).timeout
+			await _tree.create_timer(walk_param.get("stand_idle.step_delay", 0.7)).timeout
 			check_fall(Xts.SIN45)
 			if state != StateType.STAND_IDLE: return
 
 			var fwd_dot := s1b.y.dot(forward)
 
-			hip.target_angle_range = 0.8 - fwd_dot * walk_param.get("step_hip", 1.0)
-			thigh.target_angle_range = 1.0 - abs(right_dot) * walk_param.get("step_thigh", 0.9)
-			calf.target_angle_range = -fwd_dot * walk_param.get("step_calf", 0.5)
-			foot.target_angle_range = 0.4 + fwd_dot * walk_param.get("step_foot", 0.1)
+			hip.target_angle_range = 0.8 - fwd_dot * walk_param.get("stand_idle.step_hip", 1.0)
+			thigh.target_angle_range = 1.0 - abs(right_dot) * walk_param.get("stand_idle.step_thigh", 0.9)
+			calf.target_angle_range = -fwd_dot * walk_param.get("stand_idle.step_calf", 0.5)
+			foot.target_angle_range = 0.4 + fwd_dot * walk_param.get("stand_idle.step_foot", 0.1)
 			# spine1.target_angle_range = 0.5
 
-		await _tree.create_timer(walk_param.get("bend_delay", 0.7)).timeout
+		await _tree.create_timer(walk_param.get("stand_idle.bend_delay", 0.7)).timeout
 
 	next_cycle_state()
 
@@ -356,24 +356,24 @@ func start_stand_idle():
 #region WALK
 
 func start_walk():
-	foot_L.target_angle_range = walk_param.get("foot", 0.3)
-	foot_R.target_angle_range = walk_param.get("foot", 0.3)
+	foot_L.target_angle_range = walk_param.get("walk.foot", 0.3)
+	foot_R.target_angle_range = walk_param.get("walk.foot", 0.3)
 
 	for q in 5000:
 		check_fall()
 		if state != StateType.WALK: return
-		hip_L.target_angle_range = walk_param.get("hip_L", 0.05)
-		calf_L.target_angle_range = walk_param.get("calf_L", 0.5)
-		hip_R.target_angle_range = walk_param.get("hip_R", 0.95)
-		calf_R.target_angle_range = walk_param.get("calf_R", 0.0)
+		hip_L.target_angle_range = walk_param.get("walk.hip_L", 0.05)
+		calf_L.target_angle_range = walk_param.get("walk.calf_L", 0.5)
+		hip_R.target_angle_range = walk_param.get("walk.hip_R", 0.95)
+		calf_R.target_angle_range = walk_param.get("walk.calf_R", 0.0)
 		await _tree.create_timer(1.0).timeout
 
 		check_fall()
 		if state != StateType.WALK: return
-		hip_L.target_angle_range = walk_param.get("hip_R", 0.95)
-		calf_L.target_angle_range = walk_param.get("calf_R", 0.0)
-		hip_R.target_angle_range = walk_param.get("hip_L", 0.05)
-		calf_R.target_angle_range = walk_param.get("calf_L", 0.5)
+		hip_L.target_angle_range = walk_param.get("walk.hip_R", 0.95)
+		calf_L.target_angle_range = walk_param.get("walk.calf_R", 0.0)
+		hip_R.target_angle_range = walk_param.get("walk.hip_L", 0.05)
+		calf_R.target_angle_range = walk_param.get("walk.calf_L", 0.5)
 		await _tree.create_timer(1.0).timeout
 
 	next_cycle_state()
@@ -386,9 +386,6 @@ func check_fall(min_up: float = Xts.SIN15) -> void:
 
 
 #region STAND_UP
-
-var stand_up_param := { "delay_finish": 3.0, "spine3": 0.0, "shoulder_L": 0.0, "shoulder_R": 0.0, "foot_L": 0.0, "foot_R": 0.0, "hip_L": 0.0, "hip_R": 0.0
-				, "thigh_L": 0.0, "thigh_R": 0.0, "calf_L": 0.0, "calf_R": 0.0, "uarm_L": 0.0, "uarm_R": 0.0, "farm_L": 0.0, "farm_R": 0.0 }
 
 func start_stand_up():
 	uarm_L.target_angle_range = 0.0
@@ -428,11 +425,12 @@ func start_stand_up():
 
 
 	for key in walk_param.keys():
-		var obj = get(key)
-		if obj is MuscleJoint:
-			obj.target_angle_range = walk_param[key]
+		if key.begins_with("stand_up."):
+			var obj = get(key.substr(9))
+			if obj is MuscleJoint:
+				obj.target_angle_range = walk_param[key]
 
-	await _tree.create_timer(walk_param.get("delay_finish", 3.0)).timeout
+	await _tree.create_timer(walk_param.get("stand_up.delay_finish", 3.0)).timeout
 
 	start_stand_pose()
 
