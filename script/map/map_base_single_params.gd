@@ -11,6 +11,10 @@ func _get_cycle_state_type_override() -> MuscleSkeleton.CycleState:
 	return MuscleSkeleton.CycleState.IDLE
 
 
+func _check_skel_session_finished_override(__skel: MuscleSkeleton) -> bool:
+	return false
+
+
 func _set_skel_random_params_override(__skel: MuscleSkeleton) -> void:
 	pass
 
@@ -63,9 +67,10 @@ func _play_best_sessions() -> void:
 		_set_skel_params_from_array_override(_skel, array)
 
 		_skel.state = _get_state_type_override()
+		_skel.cycle_state = _get_cycle_state_type_override()
 		for sec in range(60):
 			await _tree.create_timer(1.0).timeout
-			if _skel.state != _get_state_type_override() or Input.is_key_pressed(KEY_N):
+			if _check_skel_session_finished_override(_skel) or Input.is_key_pressed(KEY_N):
 				break
 
 		var sigmoid_fitness2 := calc_fitness2(_skel.get_state_last_duration_second(_get_state_type_override()))

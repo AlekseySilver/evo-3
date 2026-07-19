@@ -9,6 +9,10 @@ func _get_state_type_override() -> MuscleSkeleton.StateType:
 func _get_cycle_state_type_override() -> MuscleSkeleton.CycleState:
 	return MuscleSkeleton.CycleState.MOVE
 
+func _check_skel_session_finished_override(skel: MuscleSkeleton) -> bool:
+	return skel.cycle_state != _get_cycle_state_type_override()
+
+
 func _set_skel_random_params_override(skel: MuscleSkeleton) -> void:
 	var rnd := func(c: float) -> float:
 		return clampf(randf_range(c - 0.2, c + 0.2), 0.0, 1.0)

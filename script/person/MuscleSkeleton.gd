@@ -204,7 +204,7 @@ func start_move():
 				state = StateType.STAND_UP
 			else:
 				state = StateType.STAND_IDLE
-			print("state", state)
+			print("state", state, "  z ", b.z.y)
 		await _tree.create_timer(1.0).timeout
 
 func next_cycle_state():
@@ -434,10 +434,11 @@ func start_stand_up():
 
 	start_stand_pose()
 
-	for q in 5000:
-		check_fall(Xts.SIN45)
-		if state != StateType.STAND_UP: return
-		await _tree.create_timer(1.0).timeout
+	if cycle_state == CycleState.IDLE:
+		for q in 5000:
+			check_fall(Xts.SIN45)
+			if state != StateType.STAND_UP: return
+			await _tree.create_timer(1.0).timeout
 
 	next_cycle_state()
 

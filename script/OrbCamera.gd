@@ -3,7 +3,7 @@ extends Camera3D
 const RAY_LENGTH = 1000.0
 
 @export var target_path: NodePath: get = get_target_path, set = set_garget_path
-@export var blend := 0.5
+@export var blend := 1.0
 
 # Camera settings
 @export var distance : float = 10.0
@@ -22,6 +22,7 @@ signal grabber_target_changed(target: RigidBody3D)
 
 var _target: Node3D
 var _target_path: NodePath
+var _target_point: Vector3 = Vector3.ZERO
 
 # Rotation variables
 var _yaw : float = 0.0
@@ -44,11 +45,11 @@ func set_garget_path(value: NodePath) -> void:
 
 func _ready() -> void:
 	set_garget_path(target_path)
-	update_camera_position()
+	update_camera_position(0.0)
 
 
-func _physics_process(_delta: float) -> void:
-	update_camera_position()
+func _physics_process(delta: float) -> void:
+	update_camera_position(delta)
 	# if _target:
 	# 	var need = _target.global_position + offset
 	# 	position = position.lerp(need, blend)
@@ -64,7 +65,6 @@ func _input(event: InputEvent) -> void:
 			_yaw -= event.relative.x * rotation_speed
 			_pitch += event.relative.y * rotation_speed
 			_pitch = clamp(_pitch, min_pitch, max_pitch)
-			update_camera_position()
 		elif _grabber_target:
 			var mouse_pos = get_viewport().get_mouse_position()
 			var from = project_ray_origin(mouse_pos)
@@ -74,10 +74,8 @@ func _input(event: InputEvent) -> void:
 		# Zoom with mouse wheel
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			distance = clamp(distance - zoom_speed, min_distance, max_distance)
-			update_camera_position()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			distance = clamp(distance + zoom_speed, min_distance, max_distance)
-			update_camera_position()
 		elif event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				var result = shoot_ray()
@@ -92,10 +90,11 @@ func _input(event: InputEvent) -> void:
 				_grabber_target = null
 
 
-func update_camera_position():
+func update_camera_position(delta: float) -> void:
 	var target_pos := Vector3.ZERO
 	if _target:
 		target_pos = _target.global_position
+	_target_point = _target_point.move_toward(target_pos, blend * delta)
 
 	# Calculate new position based on spherical coordinates
 	var offset = Vector3.ZERO
@@ -104,9 +103,9 @@ func update_camera_position():
 	offset.z = distance * cos(_yaw) * cos(_pitch)
 	
 	# Update camera position and look at target
-	position = target_pos + offset
+	position = _target_point + offset
 
-	look_at(target_pos, Vector3.UP)
+	look_at(_target_point, Vector3.UP)
 
 
 func shoot_ray() -> Dictionary:
