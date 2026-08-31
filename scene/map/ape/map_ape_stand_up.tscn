@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dgxp45u86dffg"]
+
+[ext_resource type="PackedScene" uid="uid://ct1npgi8kuhp3" path="res://scene/map/map_base.tscn" id="1_bu7yh"]
+[ext_resource type="Script" uid="uid://cusfx38y8pm71" path="res://script/map/ape/map_ape_stand_up.gd" id="2_ern1e"]
+
+[node name="Node3D" unique_id=313802072 instance=ExtResource("1_bu7yh")]
+script = ExtResource("2_ern1e")
+skel_res_path = "res://scene/person/ape.tscn"

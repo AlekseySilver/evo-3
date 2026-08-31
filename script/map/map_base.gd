@@ -2,6 +2,8 @@ extends Node3D
 class_name MapBase
 
 
+@export var skel_res_path := "res://scene/person/big_foot.tscn"
+
 @onready var _tree: SceneTree = get_tree()
 
 @onready var _skel: MuscleSkeleton = null
@@ -72,7 +74,7 @@ func _get_state_type_override() -> MuscleSkeleton.StateType:
 
 func instantiate_skel(offset: Vector3 = Vector3.ZERO) -> MuscleSkeleton:
 	var point := $InstPoint
-	var skel: MuscleSkeleton = load("res://scene/person/big_foot.tscn").instantiate()
+	var skel: MuscleSkeleton = load(skel_res_path).instantiate()
 	point.add_child(skel)
 	skel.global_position = point.global_position + offset
 	return skel

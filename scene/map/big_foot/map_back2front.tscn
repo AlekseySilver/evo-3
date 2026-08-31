@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bdxas1gioknj4"]
 
 [ext_resource type="PackedScene" uid="uid://ct1npgi8kuhp3" path="res://scene/map/map_base.tscn" id="1_roag3"]
-[ext_resource type="Script" uid="uid://fr2mtdxrkf8m" path="res://script/map/map_back2front.gd" id="2_wo4bw"]
+[ext_resource type="Script" uid="uid://fr2mtdxrkf8m" path="res://script/map/big_foot/map_back2front.gd" id="2_wo4bw"]
 
 [node name="Node3D" unique_id=313802072 instance=ExtResource("1_roag3")]
 script = ExtResource("2_wo4bw")

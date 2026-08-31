@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ct1npgi8kuhp3"]
 
-[ext_resource type="Script" uid="uid://c2vkeobgclt2q" path="res://script/map/map_stand_up.gd" id="1_jhpso"]
+[ext_resource type="Script" uid="uid://c2vkeobgclt2q" path="res://script/map/big_foot/map_stand_up.gd" id="1_jhpso"]
 [ext_resource type="Script" uid="uid://dcxu6i4gjoj5m" path="res://script/OrbCamera.gd" id="2_b822l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rh2f5"]
