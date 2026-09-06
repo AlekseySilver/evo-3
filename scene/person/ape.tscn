@@ -17,21 +17,21 @@ albedo_texture = ExtResource("3_mhdvt")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_poccc"]
 radius = 0.2
-height = 1.2
+height = 1.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ova35"]
 radius = 0.2
-height = 1.2
+height = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgk1c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hwbbs"]
 radius = 0.2
-height = 1.2
+height = 1.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_poccc"]
 radius = 0.2
-height = 1.2
+height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lmtnc"]
 radius = 0.2
@@ -117,8 +117,20 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0
 mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
+[node name="UArm_L" type="RigidBody3D" parent="." unique_id=444693971]
+transform = Transform3D(1, 6.776264e-21, 0, 3.3102024e-24, 0.9999999, 0, 0, 0, 1, -0.9730004, 2.3040366, -8.1956394e-08)
+physics_material_override = ExtResource("2_oj7me")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UArm_L" unique_id=26378847]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_hwbbs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="UArm_L" unique_id=826899539]
+mesh = SubResource("CapsuleMesh_poccc")
+surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
+
 [node name="FArm_L" type="RigidBody3D" parent="." unique_id=843103774]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.97300017, 1.2377511, -2.2351746e-07)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, -0.9730002, 1.4328903, -2.2351747e-07)
 mass = 0.9
 physics_material_override = ExtResource("2_oj7me")
 
@@ -144,7 +156,7 @@ mesh = SubResource("CapsuleMesh_ova35")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="UArm_R" type="RigidBody3D" parent="." unique_id=2132521824]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.97279966, 2.2201972, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.9727997, 2.3035483, 0)
 physics_material_override = ExtResource("2_oj7me")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UArm_R" unique_id=1296664897]
@@ -156,7 +168,7 @@ mesh = SubResource("CapsuleMesh_poccc")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
 [node name="FArm_R" type="RigidBody3D" parent="." unique_id=539170089]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.9737996, 1.2374073, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0.97379965, 1.4325465, 0)
 mass = 0.9
 physics_material_override = ExtResource("2_oj7me")
 
@@ -278,18 +290,6 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.3711392e-08, 0, 0, -1.058791
 mesh = SubResource("CapsuleMesh_gtc74")
 surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
 
-[node name="UArm_L" type="RigidBody3D" parent="Hip_R" unique_id=444693971]
-transform = Transform3D(1, -8.348876e-14, -1.2444461e-21, -7.450621e-09, 0.9999999, 1.490555e-08, -2.220785e-16, 2.980671e-08, 1, -1.2867275, 0.97665083, -5.284564e-08)
-physics_material_override = ExtResource("2_oj7me")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hip_R/UArm_L" unique_id=26378847]
-transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_hwbbs")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Hip_R/UArm_L" unique_id=826899539]
-mesh = SubResource("CapsuleMesh_poccc")
-surface_material_override/0 = SubResource("StandardMaterial3D_sgk1c")
-
 [node name="Thigh_R" type="RigidBody3D" parent="." unique_id=267572086]
 transform = Transform3D(1, 0, 0, 7.450581e-09, 1.0000002, 2.6077032e-08, 2.9802322e-08, 1.4901161e-08, 1, 0.48, 0.9513235, -1.2625218e-08)
 physics_material_override = ExtResource("2_oj7me")
@@ -347,7 +347,7 @@ script = ExtResource("4_058cx")
 [node name="HJL_Shoulder_UArm" type="HingeJoint3D" parent="." unique_id=1457657636]
 transform = Transform3D(-1, 0, -8.940697e-08, 0, 0.99999964, 0, 8.940698e-08, 0, -1, -0.9730001, 2.6864645, 0)
 node_a = NodePath("../Shoulder_L")
-node_b = NodePath("../Hip_R/UArm_L")
+node_b = NodePath("../UArm_L")
 angular_limit/enable = true
 angular_limit/upper = 0.0
 angular_limit/lower = -1.3962634
@@ -355,8 +355,8 @@ motor/max_impulse = 1.5
 script = ExtResource("4_058cx")
 
 [node name="HJL_UArm_FArm" type="HingeJoint3D" parent="." unique_id=1563336084]
-transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940698e-08, -0.9730001, 1.7302067, 0)
-node_a = NodePath("../Hip_R/UArm_L")
+transform = Transform3D(-8.940697e-08, 0, 1, 7.451018e-08, 0.99999976, 9.313638e-10, -1, 0, -8.940699e-08, -0.97300017, 1.8803139, 0)
+node_a = NodePath("../UArm_L")
 node_b = NodePath("../FArm_L")
 angular_limit/enable = true
 angular_limit/upper = 0.0
@@ -383,7 +383,7 @@ motor/max_impulse = 1.5
 script = ExtResource("4_058cx")
 
 [node name="HJR_UArm_FArm" type="HingeJoint3D" parent="." unique_id=527871323]
-transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940698e-08, 0.9730001, 1.7302067, 0)
+transform = Transform3D(-8.940697e-08, 0, 1, 7.4510176e-08, 0.99999964, 9.313637e-10, -1, 0, -8.940699e-08, 0.97300017, 1.8803139, 0)
 node_a = NodePath("../UArm_R")
 node_b = NodePath("../FArm_R")
 angular_limit/enable = true
