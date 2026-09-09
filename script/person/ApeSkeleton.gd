@@ -43,13 +43,27 @@ func _process(_delta: float) -> void:
 		shoulder_R.target_angle_range = 0.15
 
 	if Input.is_key_pressed(KEY_C):
+		hip_L.target_angle_range = 0.0
+		hip_R.target_angle_range = 0.0
+		farm_L.target_angle_range = 0.99
+		farm_R.target_angle_range = 0.99
+		shoulder_L.target_angle_range = 0.25
+		shoulder_R.target_angle_range = 0.25
+
+	if Input.is_key_pressed(KEY_V):
+		hip_L.target_angle_range = 0.3
+		hip_R.target_angle_range = 0.3
+		farm_L.target_angle_range = 0.99
+		farm_R.target_angle_range = 0.99
+		shoulder_L.target_angle_range = 0.15
+		shoulder_R.target_angle_range = 0.15
+
+	if Input.is_key_pressed(KEY_B):
 		spine3.target_angle_range = 0.5
 		farm_L.target_angle_range = 0.99
 		farm_R.target_angle_range = 0.99
 		shoulder_L.target_angle_range = 0.55
 		shoulder_R.target_angle_range = 0.55
-
-
 
 		# await _tree.create_timer(2.0).timeout
 		# thigh_L.target_angle_range = 0.0
