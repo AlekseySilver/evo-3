@@ -51,7 +51,18 @@ func _get_is_session_finished_override(skel: MuscleSkeleton) -> bool:
 	return skel.cycle_state != _get_cycle_state_type_override()
 
 func _btn_start_action_override() -> void:
-	_play_reset()
+	# _play_reset()
+	_play_walk()
 	# _play_create_random_sessions()
 	# _play_best_sessions()
 	# _play_generations()
+
+
+
+
+func _play_walk() -> void:
+	$UI/SelectedNode.text = "_play_walk"
+	await _skel_reset(true)
+
+	_skel.state = _get_state_type_override()
+	_skel.cycle_state = _get_cycle_state_type_override()

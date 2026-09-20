@@ -143,7 +143,6 @@ var state: StateType:
 func restart_state():
 	match _state:
 		StateType.WALK:
-			start_stand_pose()
 			start_walk()
 		StateType.STAND_UP:
 			start_stand_up()
@@ -356,6 +355,24 @@ func start_stand_idle():
 #region WALK
 
 func start_walk():
+	hip_L.start_target_angle(0.0)
+	thigh_L.start_target_angle(0.0)
+	calf_L.start_target_angle(0.0)
+	hip_R.start_target_angle(0.0)
+	thigh_R.start_target_angle(0.0)
+	calf_R.start_target_angle(0.0)
+
+	spine3.start_target_angle(0.0)
+	spine2.start_target_angle(0.0)
+	spine1.start_target_angle(0.0)
+	head.start_target_angle(0.0)
+	shoulder_L.stop_target()
+	uarm_L.stop_target()
+	farm_L.stop_target()
+	shoulder_R.stop_target()
+	uarm_R.stop_target()
+	farm_R.stop_target()
+
 	foot_L.target_angle_range = walk_param.get("walk.foot", 0.3)
 	foot_R.target_angle_range = walk_param.get("walk.foot", 0.3)
 

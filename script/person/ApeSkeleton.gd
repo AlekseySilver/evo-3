@@ -23,11 +23,10 @@ func _process(_delta: float) -> void:
 		foot_R.target_angle_range = 0.0
 
 		hip_L.target_angle_range = 0.0
-		thigh_L.target_angle_range = 0.99
-		calf_L.target_angle_range = 0.99
-
 		hip_R.target_angle_range = 0.0
+		thigh_L.target_angle_range = 0.99
 		thigh_R.target_angle_range = 0.99
+		calf_L.target_angle_range = 0.99
 		calf_R.target_angle_range = 0.99
 
 	if Input.is_key_pressed(KEY_Z):
@@ -43,20 +42,32 @@ func _process(_delta: float) -> void:
 		shoulder_R.target_angle_range = 0.15
 
 	if Input.is_key_pressed(KEY_C):
+		spine3.target_angle_range = 0.99
 		hip_L.target_angle_range = 0.0
 		hip_R.target_angle_range = 0.0
+		calf_L.target_angle_range = 0.99
+		calf_R.target_angle_range = 0.99
+		foot_L.target_angle_range = 0.0
+		foot_R.target_angle_range = 0.0
+
 		farm_L.target_angle_range = 0.99
 		farm_R.target_angle_range = 0.99
 		shoulder_L.target_angle_range = 0.25
 		shoulder_R.target_angle_range = 0.25
 
 	if Input.is_key_pressed(KEY_V):
+		spine3.target_angle_range = 0.55
 		hip_L.target_angle_range = 0.3
 		hip_R.target_angle_range = 0.3
+		calf_L.target_angle_range = 0.75
+		calf_R.target_angle_range = 0.75
+		foot_L.target_angle_range = 0.15
+		foot_R.target_angle_range = 0.15
+
 		farm_L.target_angle_range = 0.99
 		farm_R.target_angle_range = 0.99
-		shoulder_L.target_angle_range = 0.15
-		shoulder_R.target_angle_range = 0.15
+		shoulder_L.target_angle_range = 0.1
+		shoulder_R.target_angle_range = 0.1
 
 	if Input.is_key_pressed(KEY_B):
 		spine3.target_angle_range = 0.5
@@ -74,11 +85,44 @@ func _process(_delta: float) -> void:
 		# spine2.target_angle_range = 0.5
 
 
+func start_stand_pose():
+	spine3.target_angle_range = 0.99
+	spine2.target_angle_range = 0.5
+	spine1.target_angle_range = 0.5
+	hip_L.target_angle_range = 0.0
+	hip_R.target_angle_range = 0.0
+	thigh_L.target_angle_range = 0.99
+	thigh_R.target_angle_range = 0.99
+	calf_L.target_angle_range = 0.99
+	calf_R.target_angle_range = 0.99
+	foot_L.target_angle_range = 0.0
+	foot_R.target_angle_range = 0.0
+	shoulder_L.target_angle_range = 0.15
+	shoulder_R.target_angle_range = 0.15
+	uarm_L.target_angle_range = 1.0
+	uarm_R.target_angle_range = 1.0
+	farm_L.target_angle_range = 0.99
+	farm_R.target_angle_range = 0.99
 
 
-#region BACK_2_FRONT  # TODO change
+func start_move():
+	state = StateType.FALL
+	while cycle_state == CycleState.MOVE:
+		if state == StateType.FALL:
+			var b := body_hip.global_basis
+			# print(b.z)
+			if b.z.y < 0.0:
+				state = StateType.BACK_2_FRONT
+			else:
+				state = StateType.WALK
+			print("state", state, "  z ", b.z.y)
+		await _tree.create_timer(1.0).timeout
 
 
+
+
+
+#region BACK_2_FRONT
 
 func check_front(min_up: float = Xts.SIN15) -> void:
 	if body_hip.global_transform.basis.z.y > min_up:
@@ -90,42 +134,90 @@ func start_back2front():
 	# 	check_front()
 	# 	if state != StateType.BACK_2_FRONT: return
 
-	spine3.start_target_angle(0.0)
-	spine1.start_target_angle(0.0)
-	head.start_target_angle(0.0)
+	spine3.target_angle_range = 0.99
+	spine2.target_angle_range = 0.5
+	spine1.target_angle_range = 0.5
 
 	uarm_L.target_angle_range = 1.0
 	uarm_R.target_angle_range = 1.0
-	farm_L.target_angle_range = 0.9
+	farm_L.target_angle_range = 0.0
 	farm_R.target_angle_range = 0.0
 	shoulder_L.target_angle_range = 0.99
-	shoulder_R.target_angle_range = 0.75
-	foot_L.target_angle_range = 0.7
-	foot_R.target_angle_range = 0.7
+	shoulder_R.target_angle_range = 0.99
 
-	hip_L.target_angle_range = 0.6
-	thigh_L.target_angle_range = 1.0
-	calf_L.target_angle_range = 0.0
+	foot_L.target_angle_range = 0.0
+	foot_R.target_angle_range = 0.0
 
-	hip_R.target_angle_range = 0.8
-	thigh_R.target_angle_range = 1.0
-	calf_R.target_angle_range = 0.0
-
-	spine2.target_angle_range = 0.0
+	hip_L.target_angle_range = 0.0
+	hip_R.target_angle_range = 0.0
+	thigh_L.target_angle_range = 0.99
+	thigh_R.target_angle_range = 0.99
+	calf_L.target_angle_range = 0.99
+	calf_R.target_angle_range = 0.99
 
 	await _tree.create_timer(2.0).timeout
-	thigh_L.target_angle_range = 0.0
-	thigh_R.target_angle_range = 0.0
-	calf_R.target_angle_range = 0.5
-	
+	farm_L.target_angle_range = 0.99
+	farm_R.target_angle_range = 0.99
+	shoulder_L.target_angle_range = 0.15
+	shoulder_R.target_angle_range = 0.15
 
-	await _tree.create_timer(2.0).timeout
-	spine2.target_angle_range = 0.0
-	shoulder_L.target_angle_range = 0.5
-	calf_R.target_angle_range = 0.0
 
 	await _tree.create_timer(2.0).timeout
 	next_cycle_state()
 
+
+#endregion
+
+
+
+#region WALK
+
+func start_walk():
+	spine2.target_angle_range = 0.5
+	spine1.target_angle_range = 0.5
+	uarm_L.target_angle_range = 1.0
+	uarm_R.target_angle_range = 1.0
+	thigh_L.target_angle_range = 0.99
+	thigh_R.target_angle_range = 0.99
+
+	for q in 5000:
+		check_fall()
+		if state != StateType.WALK: return
+		spine3.target_angle_range = 0.99
+		hip_L.target_angle_range = 0.0
+		hip_R.target_angle_range = 0.0
+		calf_L.target_angle_range = 0.99
+		calf_R.target_angle_range = 0.99
+		foot_L.target_angle_range = 0.0
+		foot_R.target_angle_range = 0.0
+
+		farm_L.target_angle_range = 0.99
+		farm_R.target_angle_range = 0.99
+		shoulder_L.target_angle_range = 0.25
+		shoulder_R.target_angle_range = 0.25
+		await _tree.create_timer(1.0).timeout
+
+		check_fall()
+		if state != StateType.WALK: return
+		spine3.target_angle_range = 0.55
+		hip_L.target_angle_range = 0.3
+		hip_R.target_angle_range = 0.3
+		calf_L.target_angle_range = 0.75
+		calf_R.target_angle_range = 0.75
+		foot_L.target_angle_range = 0.15
+		foot_R.target_angle_range = 0.15
+
+		farm_L.target_angle_range = 0.99
+		farm_R.target_angle_range = 0.99
+		shoulder_L.target_angle_range = 0.1
+		shoulder_R.target_angle_range = 0.1
+
+		await _tree.create_timer(1.0).timeout
+
+	next_cycle_state()
+
+func check_fall(min_up: float = Xts.SIN15) -> void:
+	if body_hip.global_transform.basis.z.y < min_up:
+		next_cycle_state()
 
 #endregion
