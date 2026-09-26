@@ -183,36 +183,36 @@ func start_walk():
 	for q in 5000:
 		check_fall()
 		if state != StateType.WALK: return
-		spine3.target_angle_range = 0.99
-		hip_L.target_angle_range = 0.0
-		hip_R.target_angle_range = 0.0
-		calf_L.target_angle_range = 0.99
-		calf_R.target_angle_range = 0.99
-		foot_L.target_angle_range = 0.0
-		foot_R.target_angle_range = 0.0
+		spine3.target_angle_range = walk_param.get("walk.1.spine3", 0.99)
+		hip_L.target_angle_range = walk_param.get("walk.1.hip_L", 0.0)
+		hip_R.target_angle_range = walk_param.get("walk.1.hip_R", 0.0)
+		calf_L.target_angle_range = walk_param.get("walk.1.calf_L", 0.99)
+		calf_R.target_angle_range = walk_param.get("walk.1.calf_R", 0.99)
+		foot_L.target_angle_range = walk_param.get("walk.1.foot_L", 0.0)
+		foot_R.target_angle_range = walk_param.get("walk.1.foot_R", 0.0)
 
-		farm_L.target_angle_range = 0.99
-		farm_R.target_angle_range = 0.99
-		shoulder_L.target_angle_range = 0.25
-		shoulder_R.target_angle_range = 0.25
-		await _tree.create_timer(1.0).timeout
+		farm_L.target_angle_range = walk_param.get("walk.1.farm_L", 0.99)
+		farm_R.target_angle_range = walk_param.get("walk.1.farm_R", 0.99)
+		shoulder_L.target_angle_range = walk_param.get("walk.1.shoulder_L", 0.25)
+		shoulder_R.target_angle_range = walk_param.get("walk.1.shoulder_R", 0.25)
+		await _tree.create_timer(walk_param.get("walk.1.timeout", 1.0)).timeout
 
 		check_fall()
 		if state != StateType.WALK: return
-		spine3.target_angle_range = 0.55
-		hip_L.target_angle_range = 0.3
-		hip_R.target_angle_range = 0.3
-		calf_L.target_angle_range = 0.75
-		calf_R.target_angle_range = 0.75
-		foot_L.target_angle_range = 0.15
-		foot_R.target_angle_range = 0.15
+		spine3.target_angle_range = walk_param.get("walk.2.spine3", 0.55)
+		hip_L.target_angle_range = walk_param.get("walk.2.hip_L", 0.3)
+		hip_R.target_angle_range = walk_param.get("walk.2.hip_R", 0.3)
+		calf_L.target_angle_range = walk_param.get("walk.2.calf_L", 0.75)
+		calf_R.target_angle_range = walk_param.get("walk.2.calf_R", 0.75)
+		foot_L.target_angle_range = walk_param.get("walk.2.foot_L", 0.15)
+		foot_R.target_angle_range = walk_param.get("walk.2.foot_R", 0.15)
 
-		farm_L.target_angle_range = 0.99
-		farm_R.target_angle_range = 0.99
-		shoulder_L.target_angle_range = 0.1
-		shoulder_R.target_angle_range = 0.1
+		farm_L.target_angle_range = walk_param.get("walk.2.farm_L", 0.99)
+		farm_R.target_angle_range = walk_param.get("walk.2.farm_R", 0.99)
+		shoulder_L.target_angle_range = walk_param.get("walk.2.shoulder_L", 0.1)
+		shoulder_R.target_angle_range = walk_param.get("walk.2.shoulder_R", 0.1)
 
-		await _tree.create_timer(1.0).timeout
+		await _tree.create_timer(walk_param.get("walk.2.timeout", 1.0)).timeout
 
 	next_cycle_state()
 
