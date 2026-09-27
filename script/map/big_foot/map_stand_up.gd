@@ -7,7 +7,7 @@ func _get_state_type_override() -> MuscleSkeleton.StateType:
 	return MuscleSkeleton.StateType.STAND_UP
 
 func _check_skel_session_finished_override(skel: MuscleSkeleton) -> bool:
-	return skel.state != _get_state_type_override()
+	return skel.inner_state != _get_state_type_override()
 
 func _set_skel_random_params_override(skel: MuscleSkeleton) -> void:
 	skel.walk_param = { "stand_up.delay_finish": randf_range(0.5, 1.5),

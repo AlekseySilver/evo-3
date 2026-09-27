@@ -6,3 +6,6 @@
 [node name="Node3D" unique_id=313802072 instance=ExtResource("1_bu7yh")]
 script = ExtResource("2_ern1e")
 skel_res_path = "res://scene/person/ape.tscn"
+
+[node name="InstPoint" parent="." index="4" unique_id=1663889403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.451, 0)

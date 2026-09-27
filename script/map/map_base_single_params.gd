@@ -7,8 +7,8 @@ func _get_session_type_id_override() -> int:
 func _get_state_type_override() -> MuscleSkeleton.StateType:
 	return MuscleSkeleton.StateType.IDLE
 
-func _get_cycle_state_type_override() -> MuscleSkeleton.CycleState:
-	return MuscleSkeleton.CycleState.IDLE
+func _get_cycle_state_type_override() -> MuscleSkeleton.StateType:
+	return MuscleSkeleton.StateType.IDLE
 
 
 func _check_skel_session_finished_override(__skel: MuscleSkeleton) -> bool:
@@ -66,14 +66,14 @@ func _play_best_sessions() -> void:
 
 		_set_skel_params_from_array_override(_skel, array)
 
-		_skel.state = _get_state_type_override()
+		_skel.inner_state = _get_state_type_override()
 		_skel.cycle_state = _get_cycle_state_type_override()
 		for sec in range(60):
 			await _tree.create_timer(1.0).timeout
 			if _check_skel_session_finished_override(_skel) or Input.is_key_pressed(KEY_N):
 				break
 
-		var sigmoid_fitness2 := calc_fitness2(_skel.get_state_last_duration_second(_get_state_type_override()))
+		var sigmoid_fitness2 := calc_fitness2(_skel.get_state_last_duration_second(1, _get_state_type_override()))
 		print(sigmoid_fitness2, row["fitness"])
 
 
@@ -141,23 +141,23 @@ func _play_fill_sessions_fitness_one(grid_cell: Dictionary) -> void:
 
 	_set_skel_params_from_array_override(skel, array)
 
-	skel.state = _get_state_type_override()
+	skel.inner_state = _get_state_type_override()
 	for sec in range(60):
 		await _tree.create_timer(1.0).timeout
-		if skel.state != _get_state_type_override():
+		if skel.inner_state != _get_state_type_override():
 			break
 	
 	# save to DB
-	var sigmoid_fitness := calc_fitness2(skel.get_state_last_duration_second(_get_state_type_override()))
+	var sigmoid_fitness := calc_fitness2(skel.get_state_last_duration_second(1, _get_state_type_override()))
 	await DB.update_walk_session(session_id, sigmoid_fitness)
 	grid_cell["session_id"] = 0
 
 
 func _get_is_session_finished_override(skel: MuscleSkeleton) -> bool:
-	return skel.state != _get_state_type_override()
+	return skel.inner_state != _get_state_type_override()
 
 
-func _play_create_random_sessions(count: int = 5) -> void:
+func _play_create_random_sessions(count: int = 5, session_timeout: int = 60) -> void:
 	$UI/SelectedNode.text = "_play_create_random_sessions"
 	randomize()
 
@@ -167,16 +167,20 @@ func _play_create_random_sessions(count: int = 5) -> void:
 
 		_set_skel_random_params_override(_skel)
 
-		_skel.state = _get_state_type_override()
+		_skel.inner_state = _get_state_type_override()
 		_skel.cycle_state = _get_cycle_state_type_override()
-		for sec in range(60):
+		for sec in range(session_timeout):
 			await _tree.create_timer(1.0).timeout
 			if _get_is_session_finished_override(_skel):
 				break
 
 		# save to DB
-		var sigmoid_fitness := calc_fitness2(_skel.get_state_last_duration_second(_get_state_type_override()))
-		var param := _get_skel_params4db_override(_skel)
-		await DB.save_walk_session(_get_session_type_id_override(), sigmoid_fitness, param)
+		var fitness := _calc_fitness_override()
+		if fitness > 0.0:
+			var param := _get_skel_params4db_override(_skel)
+			await DB.save_walk_session(_get_session_type_id_override(), fitness, param)
 
+
+func _calc_fitness_override() -> float:
+	return calc_fitness2(_skel.get_state_last_duration_second(1, _get_state_type_override()))
 

@@ -6,8 +6,8 @@ func _get_session_type_id_override() -> int:
 func _get_state_type_override() -> MuscleSkeleton.StateType:
 	return MuscleSkeleton.StateType.FALL
 
-func _get_cycle_state_type_override() -> MuscleSkeleton.CycleState:
-	return MuscleSkeleton.CycleState.MOVE
+func _get_cycle_state_type_override() -> MuscleSkeleton.StateType:
+	return MuscleSkeleton.StateType.MOVE
 
 func _check_skel_session_finished_override(skel: MuscleSkeleton) -> bool:
 	return skel.cycle_state != _get_cycle_state_type_override()

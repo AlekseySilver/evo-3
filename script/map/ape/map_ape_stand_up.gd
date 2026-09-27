@@ -1,5 +1,7 @@
 extends MapBaseSingleParams
 
+const SESSION_TIMEOUT = 60
+
 
 func _get_session_type_id_override() -> int:
 	return 6
@@ -7,8 +9,8 @@ func _get_session_type_id_override() -> int:
 func _get_state_type_override() -> MuscleSkeleton.StateType:
 	return MuscleSkeleton.StateType.FALL
 
-func _get_cycle_state_type_override() -> MuscleSkeleton.CycleState:
-	return MuscleSkeleton.CycleState.MOVE
+func _get_cycle_state_type_override() -> MuscleSkeleton.StateType:
+	return MuscleSkeleton.StateType.MOVE
 
 func _check_skel_session_finished_override(skel: MuscleSkeleton) -> bool:
 	return skel.cycle_state != _get_cycle_state_type_override()
@@ -46,12 +48,13 @@ func _set_skel_random_params_override(skel: MuscleSkeleton) -> void:
 
 
 func _get_is_session_finished_override(skel: MuscleSkeleton) -> bool:
-	return skel.cycle_state != _get_cycle_state_type_override() # TODO or timeout or reach some -Z value
+	# print("skelZ: ", skel.body_hip.global_position.z)
+	return skel.cycle_state != _get_cycle_state_type_override() or skel.body_hip.global_position.z < -30.0
 
 func _btn_start_action_override() -> void:
 	# _play_reset()
-	_play_walk()
-	_play_create_random_sessions()
+	# _play_walk()
+	_play_create_random_sessions(5, SESSION_TIMEOUT)
 	# _play_best_sessions()
 	# _play_generations()
 
@@ -62,5 +65,9 @@ func _play_walk() -> void:
 	$UI/SelectedNode.text = "_play_walk"
 	await _skel_reset(true)
 
-	_skel.state = _get_state_type_override()
+	_skel.inner_state = _get_state_type_override()
 	_skel.cycle_state = _get_cycle_state_type_override()
+
+
+func _calc_fitness_override() -> float:
+	return 1 - _skel.get_state_last_duration_second(0, _get_cycle_state_type_override()) / float(SESSION_TIMEOUT)

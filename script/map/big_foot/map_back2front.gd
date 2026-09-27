@@ -7,7 +7,7 @@ func _get_state_type_override() -> MuscleSkeleton.StateType:
 	return MuscleSkeleton.StateType.BACK_2_FRONT
 
 func _check_skel_session_finished_override(skel: MuscleSkeleton) -> bool:
-	return skel.state != _get_state_type_override()
+	return skel.inner_state != _get_state_type_override()
 
 
 func _set_skel_random_params_override(__skel: MuscleSkeleton) -> void:

@@ -106,16 +106,16 @@ func start_stand_pose():
 
 
 func start_move():
-	state = StateType.FALL
-	while cycle_state == CycleState.MOVE:
-		if state == StateType.FALL:
+	inner_state = StateType.FALL
+	while cycle_state == StateType.MOVE:
+		if inner_state == StateType.FALL:
 			var b := body_hip.global_basis
 			# print(b.z)
 			if b.z.y < 0.0:
-				state = StateType.BACK_2_FRONT
+				inner_state = StateType.BACK_2_FRONT
 			else:
-				state = StateType.WALK
-			print("state", state, "  z ", b.z.y)
+				inner_state = StateType.WALK
+			print("inner_state", inner_state, "  z ", b.z.y)
 		await _tree.create_timer(1.0).timeout
 
 
@@ -182,7 +182,7 @@ func start_walk():
 
 	for q in 5000:
 		check_fall()
-		if state != StateType.WALK: return
+		if inner_state != StateType.WALK: return
 		spine3.target_angle_range = walk_param.get("walk.1.spine3", 0.99)
 		hip_L.target_angle_range = walk_param.get("walk.1.hip_L", 0.0)
 		hip_R.target_angle_range = walk_param.get("walk.1.hip_R", 0.0)
@@ -198,7 +198,7 @@ func start_walk():
 		await _tree.create_timer(walk_param.get("walk.1.timeout", 1.0)).timeout
 
 		check_fall()
-		if state != StateType.WALK: return
+		if inner_state != StateType.WALK: return
 		spine3.target_angle_range = walk_param.get("walk.2.spine3", 0.55)
 		hip_L.target_angle_range = walk_param.get("walk.2.hip_L", 0.3)
 		hip_R.target_angle_range = walk_param.get("walk.2.hip_R", 0.3)

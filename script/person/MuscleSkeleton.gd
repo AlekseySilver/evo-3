@@ -1,7 +1,6 @@
 class_name MuscleSkeleton extends Node3D
 
-enum StateType { IDLE, WALK, FALL, STAND_UP, STAND_IDLE, RELAX, BACK_2_FRONT }
-enum CycleState { IDLE, MOVE }
+enum StateType { IDLE, WALK, FALL, STAND_UP, STAND_IDLE, RELAX, BACK_2_FRONT, MOVE }
 
 var _joints: Array[MuscleJoint]
 
@@ -28,10 +27,8 @@ var _joints: Array[MuscleJoint]
 @onready var farm_R: MuscleJoint = $HJR_UArm_FArm
 
 @onready var _tree: SceneTree = get_tree()
-var _state := StateType.IDLE
-var _state_stats: Dictionary[StateType, Dictionary]
-
-var _cycle_state := CycleState.IDLE
+var _state: Array[StateType] = [StateType.IDLE, StateType.IDLE]
+var _state_stats: Array = [{}, {}] # Array[ Dictionary[StateType, Dictionary] ]
 
 signal state_changed()
 
@@ -49,7 +46,8 @@ func _ready() -> void:
 	# print(len(_joints))
 	# for joint in _joints:
 	# 	print("@onready var calf_R: MuscleJoint = $", joint.name)
-	restart_state()
+	restart_state(0)
+	restart_state(1)
 
 
 func _process(_delta: float) -> void:
@@ -58,11 +56,11 @@ func _process(_delta: float) -> void:
 			print(j.name, " angle = ", j.get_current_angle_deg())
 	
 	if Input.is_key_pressed(KEY_S):
-		cycle_state = CycleState.MOVE
+		_state[0] = StateType.MOVE
 		print(cycle_state)
 
-		# state = StateType.BACK_2_FRONT
-		# print(state)
+		# inner_state = StateType.BACK_2_FRONT
+		# print(inner_state)
 
 
 		# spine3.start_target_angle(0.0)
@@ -98,8 +96,8 @@ func _process(_delta: float) -> void:
 
 
 
-func get_state_last_duration_second(state_: StateType) -> float:
-	var stat: Dictionary = _state_stats.get(state_)
+func get_state_last_duration_second(level: int, state_: StateType) -> float:
+	var stat: Dictionary = _state_stats[level].get(state_)
 	if stat:
 		var d: int = stat["duration"]
 		if d < 0:
@@ -107,54 +105,65 @@ func get_state_last_duration_second(state_: StateType) -> float:
 		return d / 1000.0
 	return -1.0
 
-var cycle_state: CycleState:
+func get_state(level: int) -> StateType:
+	return _state[level]
+
+func set_state(level: int, new_value: StateType) -> void:
+	if _state[level] == new_value:
+		return
+
+	var msec := Time.get_ticks_msec()
+
+	# prev inner_state
+	var stat: Dictionary = _state_stats[level].get(_state[level], {})
+	if stat:
+		stat["duration"] = msec - stat["start_msec"]
+	_state_stats[level][_state[level]] = stat
+	
+	# new inner_state
+	stat = _state_stats[level].get(new_value, {})
+	stat["start_msec"] = msec
+	stat["duration"] = -1
+	_state_stats[level][new_value] = stat
+
+	_state[level] = new_value
+	restart_state(level)
+
+var cycle_state: StateType:
 	set(new_value):
-		if _cycle_state == new_value:
-			return
-		_cycle_state = new_value
-		restart_cycle_state()
+		set_state(0, new_value)
 	get():
-		return _cycle_state
+		return get_state(0)
 
-var state: StateType:
+var inner_state: StateType:
 	set(new_value):
-		if _state == new_value:
-			return
-
-		var msec := Time.get_ticks_msec()
-
-		# prev state
-		var stat: Dictionary = _state_stats.get(_state, {})
-		if stat:
-			stat["duration"] = msec - stat["start_msec"]
-		_state_stats[_state] = stat
-		
-		# new state
-		stat = _state_stats.get(new_value, {})
-		stat["start_msec"] = msec
-		stat["duration"] = -1
-		_state_stats[new_value] = stat
-
-		_state = new_value
-		restart_state()
+		set_state(1, new_value)
 	get():
-		return _state
+		return get_state(1)
 
-func restart_state():
-	match _state:
-		StateType.WALK:
-			start_walk()
-		StateType.STAND_UP:
-			start_stand_up()
-		StateType.STAND_IDLE:
-			start_stand_idle()
-		StateType.RELAX:
-			start_relax()
-		StateType.BACK_2_FRONT:
-			start_back2front()
-		_: # StateType.IDLE
-			start_stand_pose()
-	state_changed.emit()
+func restart_state(level: int):
+	match level:
+		0:
+			match cycle_state:
+				StateType.MOVE:
+					start_move()
+				_: # StateType.IDLE
+					pass
+		_: # 1
+			match _state[level]:
+				StateType.WALK:
+					start_walk()
+				StateType.STAND_UP:
+					start_stand_up()
+				StateType.STAND_IDLE:
+					start_stand_idle()
+				StateType.RELAX:
+					start_relax()
+				StateType.BACK_2_FRONT:
+					start_back2front()
+				_: # StateType.IDLE
+					start_stand_pose()
+			state_changed.emit()
 
 
 func start_relax():
@@ -184,30 +193,24 @@ func start_stand_pose():
 	farm_R.stop_target()
 
 
-func restart_cycle_state():
-	match _cycle_state:
-		CycleState.MOVE:
-			start_move()
-		_: # CycleState.IDLE
-			pass
 
 func start_move():
-	state = StateType.FALL
-	while cycle_state == CycleState.MOVE:
-		if state == StateType.FALL:
+	inner_state = StateType.FALL
+	while cycle_state == StateType.MOVE:
+		if inner_state == StateType.FALL:
 			var b := body_hip.global_basis
 			print(b.z)
 			if b.z.y < -Xts.SIN45:
-				state = StateType.BACK_2_FRONT
+				inner_state = StateType.BACK_2_FRONT
 			elif b.z.y > Xts.SIN45:
-				state = StateType.STAND_UP
+				inner_state = StateType.STAND_UP
 			else:
-				state = StateType.STAND_IDLE
-			print("state", state, "  z ", b.z.y)
+				inner_state = StateType.STAND_IDLE
+			print("inner_state", inner_state, "  z ", b.z.y)
 		await _tree.create_timer(1.0).timeout
 
 func next_cycle_state():
-	state = StateType.FALL
+	inner_state = StateType.FALL
 
 
 #region BACK_2_FRONT
@@ -218,9 +221,9 @@ func check_front(min_up: float = Xts.SIN15) -> void:
 
 func start_back2front():
 	print("start_back2front")
-	# while state == StateType.BACK_2_FRONT:
+	# while inner_state == StateType.BACK_2_FRONT:
 	# 	check_front()
-	# 	if state != StateType.BACK_2_FRONT: return
+	# 	if inner_state != StateType.BACK_2_FRONT: return
 
 	spine3.start_target_angle(0.0)
 	spine1.start_target_angle(0.0)
@@ -277,9 +280,9 @@ func start_stand_idle():
 
 
 	spine3.target_angle_range = walk_param.get("stand_idle.spine3", 0.9)
-	while state == StateType.STAND_IDLE:
+	while inner_state == StateType.STAND_IDLE:
 		check_fall(Xts.SIN45)
-		if state != StateType.STAND_IDLE: return
+		if inner_state != StateType.STAND_IDLE: return
 
 		var s1b := body_hip.global_basis
 		var right := s1b.x
@@ -310,7 +313,7 @@ func start_stand_idle():
 
 			await _tree.create_timer(walk_param.get("stand_idle.unbend_delay", 0.3)).timeout
 			check_fall(Xts.SIN45)
-			if state != StateType.STAND_IDLE: return
+			if inner_state != StateType.STAND_IDLE: return
 
 			hip.target_angle_range = walk_param.get("stand_idle.unbend_hip", 0.8)
 			thigh.target_angle_range = walk_param.get("stand_idle.unbend_thigh", 1.0)
@@ -335,7 +338,7 @@ func start_stand_idle():
 
 			await _tree.create_timer(walk_param.get("stand_idle.step_delay", 0.7)).timeout
 			check_fall(Xts.SIN45)
-			if state != StateType.STAND_IDLE: return
+			if inner_state != StateType.STAND_IDLE: return
 
 			var fwd_dot := s1b.y.dot(forward)
 
@@ -378,7 +381,7 @@ func start_walk():
 
 	for q in 5000:
 		check_fall()
-		if state != StateType.WALK: return
+		if inner_state != StateType.WALK: return
 		hip_L.target_angle_range = walk_param.get("walk.hip_L", 0.05)
 		calf_L.target_angle_range = walk_param.get("walk.calf_L", 0.5)
 		hip_R.target_angle_range = walk_param.get("walk.hip_R", 0.95)
@@ -386,7 +389,7 @@ func start_walk():
 		await _tree.create_timer(1.0).timeout
 
 		check_fall()
-		if state != StateType.WALK: return
+		if inner_state != StateType.WALK: return
 		hip_L.target_angle_range = walk_param.get("walk.hip_R", 0.95)
 		calf_L.target_angle_range = walk_param.get("walk.calf_R", 0.0)
 		hip_R.target_angle_range = walk_param.get("walk.hip_L", 0.05)
@@ -451,10 +454,10 @@ func start_stand_up():
 
 	start_stand_pose()
 
-	if cycle_state == CycleState.IDLE:
+	if cycle_state == StateType.IDLE:
 		for q in 5000:
 			check_fall(Xts.SIN45)
-			if state != StateType.STAND_UP: return
+			if inner_state != StateType.STAND_UP: return
 			await _tree.create_timer(1.0).timeout
 
 	next_cycle_state()
